@@ -1,0 +1,35 @@
+{
+  "name": "opina",
+  "version": "1.0.0",
+  "description": "Opina project",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "node ./index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Fabio Schettino",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "~1.17.1",
+    "bookshelf": "^0.10.3",
+    "bookshelf-cascade-delete": "^2.0.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "dotenv": "^4.0.0",
+    "express": "~4.15.2",
+    "hbs": "^4.0.1",
+    "joi": "^10.5.2",
+    "knex": "^0.13.0",
+    "lodash": "^4.17.4",
+    "morgan": "~1.8.1",
+    "multi-views": "^0.1.1",
+    "mysql": "^2.13.0",
+    "serve-favicon": "~2.4.2"
+  },
+  "devDependencies": {
+    "eslint": "^4.0.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.3.0"
+  }
+}
