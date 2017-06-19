@@ -14,13 +14,17 @@ const ConfigurationManager = require('./config/');
 const processes = process.env.PROCESSES.split(',');
 const ports = process.env.PORTS.split(',');
 
-// Check configuration for each process and if is ok execute the process
 const processesData = _.zip(processes, ports);
 
-processesData.map((currentDataSet) => {
-  const processType = currentDataSet[0];
-  const processPort = currentDataSet[1];
+processesData.map((currentProcessDataSet) => {
+  const processType = currentProcessDataSet[0];
+  const processPort = currentProcessDataSet[1];
 
+  return loadProcess(processType, processPort);
+});
+
+// Check configuration for each process and if is ok execute the process
+function loadProcess(processType, processPort) {
   try {
     if ((processType === 'app-1') || (processType === 'app-2') || (processType === 'app-3') || (processType === 'app-4')) {
       ConfigurationManager.checkProcessConfiguration(processType, processPort)
@@ -35,7 +39,7 @@ processesData.map((currentDataSet) => {
   } catch (error) {
     console.log('\x1b[31m', `✘ ${error.message}`, '\x1b[0m');
   }
-});
+}
 
 function executeProcess(processType, processPort, configurationResult) {
   const processConfigurationResult = JSON.parse(JSON.stringify(configurationResult));
