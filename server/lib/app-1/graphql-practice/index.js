@@ -1,15 +1,14 @@
-const express = require('express');
-const path = require('path');
-
-// Add support for rendering views from multiple directories
-const multiViews = require('multi-views');
+import express from 'express';
+import path from 'path';
+import bodyParser from 'body-parser';
+import multiViews from 'multi-views';
+import {
+  graphqlExpress,
+  graphiqlExpress,
+} from 'graphql-server-express';
+import { schema } from './schema';
 
 const app = express();
-
-// Router setup
-const graphqlPractice = require('./graphqlPractice.router');
-
-graphqlPractice.configure(app);
 
 // View engine setup for multiple views
 const viewDirs = [];
@@ -18,5 +17,14 @@ app.set('view engine', 'hbs');
 viewDirs.push(path.resolve(__dirname, 'views'));
 viewDirs.push(path.resolve(__dirname, '../_common/views'));
 multiViews.setupMultiViews(app);
+
+// Setting up graphql endpoint and graphiql interface
+app.use('/graphql', bodyParser.json(), graphqlExpress({
+  schema
+}));
+
+app.use('/graphiql', graphiqlExpress({
+  endpointURL: '/graphql'
+}));
 
 module.exports = app;
