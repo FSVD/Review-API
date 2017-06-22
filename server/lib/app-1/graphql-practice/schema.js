@@ -7,32 +7,32 @@ import { resolvers } from './resolvers';
 const typeDefs = `
 
 type User {
-  id: ID!
+  id: Int!
   username: String
   firstname: String
   lastname: String
   password: String
   email: String
   city: String
-  newsletteragree: String
-  userstatus: String
+  newsletteragree: Boolean
+  userstatus: Boolean
 }
 
 type Subject {
-  id: ID!
+  id: Int!
   categoryid: String
   googleplacesreference: String
 }
 
 type SubjectCategory {
-  id: ID!
+  id: Int!
   name: String
 }
 
 type Query {
-  users: [User],
-  subjects: [Subject],
-  categories: [SubjectCategory]
+  getUsers: [User],
+  getSubjects: [Subject],
+  getCategories: [SubjectCategory]
 }
 `;
 

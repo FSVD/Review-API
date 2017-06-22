@@ -57,13 +57,13 @@ const categories = [{
 
 export const resolvers = {
   Query: {
-    users: () => {
+    getUsers: () => {
       return users;
     },
-    subjects: () => {
+    getSubjects: () => {
       return subjects;
     },
-    categories: () => {
+    getCategories: () => {
       return categories;
     }
   },
