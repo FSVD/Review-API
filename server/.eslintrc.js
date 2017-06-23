@@ -13,6 +13,7 @@ module.exports = {
     "global-require": [0],
     "no-console": [0],
     "import/no-dynamic-require": [0],
+    "import/prefer-default-export": [0],
     "max-len": [0]
   }
 };
