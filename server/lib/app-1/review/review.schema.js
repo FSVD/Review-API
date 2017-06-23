@@ -3,8 +3,8 @@ export const schema = [`
     id: Int!
     user_id: Int
     subject_id: Int
-    title: String
-    content: String
+    title(customTitle: String): String
+    content(customContent: String): String
     review_status: Int
     review_evaluations: [ReviewEvaluation]
     author: User
