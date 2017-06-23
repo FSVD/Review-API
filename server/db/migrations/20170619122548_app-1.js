@@ -11,7 +11,7 @@ exports.up = function (knex, Promise) {
       table.string('email').notNull();
       table.string('city');
       table.boolean('newsletter_agree').notNull();
-      table.boolean('user_status').notNull();
+      table.integer('user_account_status').notNull();
       table.timestamps([], []);
     }),
     knex.schema.createTable('subject', (table) => {
@@ -31,6 +31,7 @@ exports.up = function (knex, Promise) {
       table.integer('subject_id').unsigned().notNull().references('subject.id');
       table.string('title').notNull();
       table.string('content').notNull();
+      table.integer('review_status').notNull();
       table.timestamps([], []);
     }),
     knex.schema.createTable('rating_criterion', (table) => {
@@ -46,7 +47,7 @@ exports.up = function (knex, Promise) {
     }),
     knex.schema.createTable('review_evaluation', (table) => {
       table.increments('id').unsigned().primary();
-      table.boolean('type').notNull();
+      table.integer('type').notNull();
       table.integer('user_id').unsigned().notNull().references('user.id');
       table.integer('review_id').unsigned().notNull().references('review.id');
       table.timestamps([], []);
