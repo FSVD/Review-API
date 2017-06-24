@@ -26,7 +26,7 @@ processesData.map((currentProcessDataSet) => {
 // Check configuration for each process and if is ok execute the process
 function loadProcess(processType, processPort) {
   try {
-    if ((processType === 'app-1') || (processType === 'app-2') || (processType === 'app-3') || (processType === 'app-4')) {
+    if ((processType === 'GraphQL-api') || (processType === 'REST-api')) {
       ConfigurationManager.checkProcessConfiguration(processType, processPort)
         .then((result) => {
           executeProcess(processType, processPort, result);
