@@ -23,6 +23,8 @@
     "graphql-tools": "^1.0.0",
     "hbs": "^4.0.1",
     "joi": "^10.5.2",
+    "join-monster": "^1.2.7-beta.1",
+    "join-monster-graphql-tools-adapter": "0.0.2",
     "knex": "^0.13.0",
     "lodash": "^4.17.4",
     "morgan": "~1.8.1",
