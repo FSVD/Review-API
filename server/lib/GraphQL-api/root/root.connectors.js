@@ -21,7 +21,7 @@ export function getUsers() {
 }
 
 export function getUsersJM(obj, args, context, info) {
-  console.log(`Fetching data with Joint Monster package for user: ${args.id}`);
+  if (args.id) console.log(`Fetching data with Joint Monster package for user: ${args.id}`);
   return joinMonster(info, {}, (sql) => knex.raw(sql)
     .then((result) => {
       const parsedResult = JSON.parse(JSON.stringify(result[0]));
