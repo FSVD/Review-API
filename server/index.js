@@ -34,7 +34,7 @@ function loadProcess(processType, processPort) {
           console.log('\x1b[31m', `✘ ${processType} configuration fail: ${error.message}`, '\x1b[0m');
         });
     } else {
-      throw new Error(`"${processType}" is an unsupported process process type. Use : "app-1, app-2, app-3 or app-4"!`);
+      throw new Error(`"${processType}" is an unsupported process process type. Use : "GraphQL-api or REST-api"!`);
     }
   } catch (error) {
     console.log('\x1b[31m', `✘ ${error.message}`, '\x1b[0m');
