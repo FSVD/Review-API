@@ -18,7 +18,10 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
         sqlJoin: (categoryTable, subjectTable) => `${categoryTable}.category_id = ${subjectTable}.id`,
       },
       reviews: {
-        sqlJoin: (reviewTable, subjectTable) => `${reviewTable}.id = ${subjectTable}.id`,
+        sqlBatch: {
+          thisKey: 'subject_id',
+          parentKey: 'id',
+        },
       },
     },
   },
@@ -32,10 +35,21 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
         sqlColumn: 'name',
       },
       rating_criterions: {
-        sqlJoin: (subjectCategoryTable, ratingCriterionsTable) => `${subjectCategoryTable}.id = ${ratingCriterionsTable}.id`,
+        // sqlJoin: (subjectCategoryTable, ratingCriterionsTable) => `${subjectCategoryTable}.id = ${ratingCriterionsTable}.id`,
+        junctionTable: 'subject_category_rating_criterion',
+        junctionTableKey: ['subject_category_id', 'rating_criterion_id'],
+        junctionBatch: {
+          thisKey: 'subject_category_id',
+          parentKey: 'id',
+          sqlJoin: (subject_category_rating_criterion, rating_criterion) => `${subject_category_rating_criterion}.rating_criterion_id = ${rating_criterion}.id`,
+        },
       },
       subjects: {
-        sqlJoin: (subjectCategoryTable, subjectTable) => `${subjectCategoryTable}.id = ${subjectTable}.id`,
+        // sqlJoin: (subjectCategoryTable, subjectTable) => `${subjectCategoryTable}.id = ${subjectTable}.id`,
+        sqlBatch: {
+          thisKey: 'category_id',
+          parentKey: 'id',
+        },
       },
     },
   },
@@ -49,7 +63,13 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
         sqlColumn: 'name',
       },
       subject_categories: {
-        sqlJoin: (categoryTable, ratingCriterionsTable) => `${categoryTable}.category_id = ${ratingCriterionsTable}.id`,
+        junctionTable: 'subject_category_rating_criterion',
+        junctionTableKey: ['rating_criterion_id', 'subject_category_id'],
+        junctionBatch: {
+          thisKey: 'rating_criterion_id',
+          parentKey: 'id',
+          sqlJoin: (subject_category_rating_criterion, subject_category) => `${subject_category_rating_criterion}.subject_category_id = ${subject_category}.id`,
+        },
       },
     },
   },
