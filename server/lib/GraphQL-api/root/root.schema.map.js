@@ -8,6 +8,9 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
       getUsersJMwithArgs: {
         where: (table, args) => `${table}.id = ${args.id}`
       },
+      getSubjectsJMwithArgs: {
+        where: (table, args) => `${table}.id = ${args.id}`
+      },
     },
   },
 });

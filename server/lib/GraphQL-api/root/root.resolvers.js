@@ -5,6 +5,7 @@ export const resolvers = {
     getUsersJM: (obj, args, context, info) => rootConnector(obj, args, context, info),
     getUsersJMwithArgs: (obj, args, context, info) => rootConnector(obj, args, context, info),
     getSubjectsJM: (obj, args, context, info) => rootConnector(obj, args, context, info),
+    getSubjectsJMwithArgs: (obj, args, context, info) => rootConnector(obj, args, context, info),
     getCategoriesJM: (obj, args, context, info) => rootConnector(obj, args, context, info),
     getReviewsJM: (obj, args, context, info) => rootConnector(obj, args, context, info),
     getRatingCriterionsJM: (obj, args, context, info) => rootConnector(obj, args, context, info),

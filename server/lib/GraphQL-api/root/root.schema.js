@@ -1,9 +1,9 @@
 export const schema = [`
   type Query {
-    # getUsers: [User]
     getUsersJM: [User]
     getUsersJMwithArgs(id: Int): [User]
     getSubjectsJM: [Subject]
+    getSubjectsJMwithArgs(id: Int): [Subject]
     getCategoriesJM: [SubjectCategory]
     getReviewsJM: [Review]
     getRatingCriterionsJM: [RatingCriterion]
