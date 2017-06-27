@@ -10,6 +10,7 @@ import {
   graphiqlExpress,
 } from 'graphql-server-express';
 import executableSchema from './schema';
+import schemaMap from './schema.map';
 
 const app = express();
 

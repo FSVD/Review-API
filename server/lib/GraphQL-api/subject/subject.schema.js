@@ -17,7 +17,7 @@ export const schema = [`
   type RatingCriterion {
     id: Int!
     name: String
-    subjectCategories: [SubjectCategory]
+    subject_categories: [SubjectCategory]
   }
 
   type SubjectCategoryRatingCriterion {
