@@ -33,7 +33,7 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
         sqlColumn: 'user_account_status',
       },
       reviews: {
-        sqlJoin: (reviewTable, userTable) => `${userTable}.id = ${reviewTable}.user_id`,
+        sqlJoin: (reviewTable, userTable) => `${reviewTable}.id = ${userTable}.user_id`,
       },
     },
   },

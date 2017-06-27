@@ -14,8 +14,11 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
       google_places_reference: {
         sqlColumn: 'google_places_reference',
       },
+      category: {
+        sqlJoin: (categoryTable, subjectTable) => `${categoryTable}.category_id = ${subjectTable}.id`,
+      },
       reviews: {
-        sqlJoin: (reviewTable, subjectTable) => `${subjectTable}.id = ${reviewTable}.subject_id`,
+        sqlJoin: (reviewTable, subjectTable) => `${reviewTable}.id = ${subjectTable}.id`,
       },
     },
   },
@@ -28,8 +31,11 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
       name: {
         sqlColumn: 'name',
       },
+      rating_criterions: {
+        sqlJoin: (subjectCategoryTable, ratingCriterionsTable) => `${subjectCategoryTable}.id = ${ratingCriterionsTable}.id`,
+      },
       subjects: {
-        sqlJoin: (subjectCategoryTable, subjectTable) => `${subjectCategoryTable}.id = ${subjectTable}.category_id`,
+        sqlJoin: (subjectCategoryTable, subjectTable) => `${subjectCategoryTable}.id = ${subjectTable}.id`,
       },
     },
   },
@@ -41,6 +47,9 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
     fields: {
       name: {
         sqlColumn: 'name',
+      },
+      subject_categories: {
+        sqlJoin: (categoryTable, ratingCriterionsTable) => `${categoryTable}.category_id = ${ratingCriterionsTable}.id`,
       },
     },
   },

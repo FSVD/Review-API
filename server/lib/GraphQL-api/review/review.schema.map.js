@@ -23,12 +23,15 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
       review_status: {
         sqlColumn: 'review_status',
       },
-      /*author: {
-        sqlJoin: (userTable, reviewTable) => `${reviewTable}.user_id = ${userTable}.id`,
+      review_evaluations: {
+        sqlJoin: (reviewRvaluationTable, reviewTable) => `${reviewRvaluationTable}.id = ${reviewTable}.id`,
+      },
+      author: {
+        sqlJoin: (userTable, reviewTable) => `${userTable}.user_id = ${reviewTable}.id`,
       },
       subject: {
-        sqlJoin: (subjectTable, reviewTable) => `${reviewTable}.subject_id = ${subjectTable}.id`,
-      },*/
+        sqlJoin: (subjectTable, reviewTable) => `${subjectTable}.subject_id = ${reviewTable}.id`,
+      },
     },
   },
   ReviewEvaluation: {

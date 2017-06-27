@@ -1,13 +1,13 @@
 export const schema = [`
   type Query {
-    getUsers: [User]
+    # getUsers: [User]
     getUsersJM: [User]
     getUsersJMwithArgs(id: Int): [User]
-    getSubjects: [Subject]
-    getCategories: [SubjectCategory]
-    getReviews: [Review]
-    getRatingCriterions: [RatingCriterion]
-    getSubjectCategoryRatingCriterion: [SubjectCategoryRatingCriterion]
-    getReviewEvaluation: [ReviewEvaluation]
+    getSubjectsJM: [Subject]
+    getCategoriesJM: [SubjectCategory]
+    getReviewsJM: [Review]
+    getRatingCriterionsJM: [RatingCriterion]
+    getSubjectCategoryRatingCriterionJM: [SubjectCategoryRatingCriterion]
+    getReviewEvaluationJM: [ReviewEvaluation]
   }
 `];

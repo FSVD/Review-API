@@ -1,7 +1,7 @@
 export const schema = [`
   type Subject {
     id: Int!
-    category_id: String
+    category_id: Int
     google_places_reference: String
     category: SubjectCategory
     reviews: [Review]
