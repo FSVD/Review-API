@@ -1,5 +1,5 @@
 const config = require('./knexfile');
-const knex = require('knex')(config[process.env.NODE_ENV]);
+export const knex = require('knex')(config[process.env.NODE_ENV]);
 
 knex.migrate.latest([config]);
 
@@ -9,4 +9,4 @@ const cascadeDelete = require('bookshelf-cascade-delete');
 bookshelf.plugin(cascadeDelete); // Provide cascade delete
 bookshelf.plugin('registry'); // Avoid circular dependency among models
 
-module.exports = bookshelf; // Export module bookshelf for access to db connection
+export default bookshelf; // Export module bookshelf for access to db connection

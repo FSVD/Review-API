@@ -1,7 +1,7 @@
 import joinMonster from 'join-monster';
 
 // Require knex db configuration
-import knex from '../../../db/knex.index';
+import { knex } from '../../../db/index';
 
 export function rootConnector(obj, args, context, info) {
   if (args.id) console.log(`Fetching data with Joint Monster package for root element: ${args.id}`);
