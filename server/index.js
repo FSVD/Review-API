@@ -1,9 +1,6 @@
 // Require dotenv module to read .env file from root
 require('dotenv').config({ silent: true });
 
-// Require db configuration to run database when application start
-require('./db/');
-
 // Require loadash which provides utilities to manage multidimensional array
 const _ = require('lodash');
 
