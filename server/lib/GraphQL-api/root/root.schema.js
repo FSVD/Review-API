@@ -1,13 +1,15 @@
 export const schema = [`
   type Query {
-    getUsersJM: [User]
-    getUsersJMwithArgs(id: Int): [User]
-    getSubjectsJM: [Subject]
-    getSubjectsJMwithArgs(id: Int): [Subject]
-    getCategoriesJM: [SubjectCategory]
-    getReviewsJM: [Review]
-    getRatingCriterionsJM: [RatingCriterion]
-    getSubjectCategoryRatingCriterionJM: [SubjectCategoryRatingCriterion]
-    getReviewEvaluationJM: [ReviewEvaluation]
+    userById(id: Int): User
+    subjectById(id: Int): Subject
+    allUsers: [User]
+    allUsersByFirstname(firstName: String): [User]
+    allUsersByNewsletterAgree(newsletterAgree: Boolean): [User]
+    allSubjects: [Subject]
+    allCategories: [SubjectCategory]
+    allReviews: [Review]
+    allRatingCriterions: [RatingCriterion]
+    allSubjectCategoryRatingCriterion: [SubjectCategoryRatingCriterion]
+    allReviewEvaluation: [ReviewEvaluation]
   }
 `];

@@ -4,6 +4,7 @@ export const schema = [`
     username: String
     first_name: String
     last_name: String
+    full_name: String
     password: String
     email: String
     city: String
