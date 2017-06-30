@@ -9,6 +9,7 @@ export const schema = [`
     review_evaluations: [ReviewEvaluation]
     author: User
     subject: Subject
+    review_rating_criterions_values: [ReviewRatingCriterionValue]
   }
 
   type ReviewEvaluation {
@@ -16,5 +17,13 @@ export const schema = [`
     type: Int
     user_id: Int
     review_id: Int
+  }
+
+  type ReviewRatingCriterionValue {
+    id: Int!
+    review_id: Int
+    rating_criterion_id: Int
+    value: Int
+    rating_criterion: RatingCriterion
   }
 `];
