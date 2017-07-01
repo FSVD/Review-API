@@ -1,17 +1,22 @@
-import { rootConnector } from './root.connectors';
+import { getStackInfo } from './root.connectors';
+import { getUserData } from '../user/user.connectors';
+import { getSubjectData } from '../subject/subject.connectors';
+import { getReviewData } from '../review/review.connectors';
 
 export const resolvers = {
   Query: {
-    userById: (obj, args, context, info) => rootConnector(obj, args, context, info),
-    subjectById: (obj, args, context, info) => rootConnector(obj, args, context, info),
-    allUsers: (obj, args, context, info) => rootConnector(obj, args, context, info),
-    allUsersByFirstname: (obj, args, context, info) => rootConnector(obj, args, context, info),
-    allUsersByNewsletterAgree: (obj, args, context, info) => rootConnector(obj, args, context, info),
-    allSubjects: (obj, args, context, info) => rootConnector(obj, args, context, info),
-    allCategories: (obj, args, context, info) => rootConnector(obj, args, context, info),
-    allReviews: (obj, args, context, info) => rootConnector(obj, args, context, info),
-    allRatingCriterions: (obj, args, context, info) => rootConnector(obj, args, context, info),
-    allSubjectCategoryRatingCriterion: (obj, args, context, info) => rootConnector(obj, args, context, info),
-    allReviewEvaluation: (obj, args, context, info) => rootConnector(obj, args, context, info),
+    stackInfo: () => getStackInfo(),
+    userById: (obj, args, context, info) => getUserData(obj, args, context, info),
+    users: (obj, args, context, info) => getUserData(obj, args, context, info),
+    usersByFirstname: (obj, args, context, info) => getUserData(obj, args, context, info),
+    usersByNewsletterAgree: (obj, args, context, info) => getUserData(obj, args, context, info),
+    subjectById: (obj, args, context, info) => getSubjectData(obj, args, context, info),
+    subjects: (obj, args, context, info) => getSubjectData(obj, args, context, info),
+    subjectCategories: (obj, args, context, info) => getSubjectData(obj, args, context, info),
+    subjectCategoryRatingCriterions: (obj, args, context, info) => getSubjectData(obj, args, context, info),
+    ratingCriterions: (obj, args, context, info) => getSubjectData(obj, args, context, info),
+    reviews: (obj, args, context, info) => getReviewData(obj, args, context, info),
+    reviewEvaluations: (obj, args, context, info) => getReviewData(obj, args, context, info),
+    reviewEvaluationsByReviewId: (obj, args, context, info) => getReviewData(obj, args, context, info),
   },
 };

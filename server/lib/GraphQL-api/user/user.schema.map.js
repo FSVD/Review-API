@@ -11,10 +11,10 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
       username: {
         sqlColumn: 'username',
       },
-      first_name: {
+      firstName: {
         sqlColumn: 'first_name',
       },
-      last_name: {
+      lastName: {
         sqlColumn: 'last_name',
       },
       password: {
@@ -26,14 +26,14 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
       city: {
         sqlColumn: 'city',
       },
-      newsletter_agree: {
+      newsletterAgree: {
         sqlColumn: 'newsletter_agree',
       },
-      user_account_status: {
+      userAccountStatus: {
         sqlColumn: 'user_account_status',
       },
       reviews: {
-        sqlJoin: (reviewTable, userTable) => `${reviewTable}.id = ${userTable}.user_id`,
+        sqlJoin: (userTable, reviewTable) => `${userTable}.id = ${reviewTable}.user_id`,
       },
     },
   },

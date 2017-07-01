@@ -1,15 +1,17 @@
 export const schema = [`
   type Query {
+    stackInfo: String
     userById(id: Int): User
+    users: [User]
+    usersByFirstname(firstName: String): [User]
+    usersByNewsletterAgree(newsletterAgree: Boolean): [User]
     subjectById(id: Int): Subject
-    allUsers: [User]
-    allUsersByFirstname(firstName: String): [User]
-    allUsersByNewsletterAgree(newsletterAgree: Boolean): [User]
-    allSubjects: [Subject]
-    allCategories: [SubjectCategory]
-    allReviews: [Review]
-    allRatingCriterions: [RatingCriterion]
-    allSubjectCategoryRatingCriterion: [SubjectCategoryRatingCriterion]
-    allReviewEvaluation: [ReviewEvaluation]
+    subjects: [Subject]
+    subjectCategories: [SubjectCategory]
+    subjectCategoryRatingCriterions: [SubjectCategoryRatingCriterion]
+    ratingCriterions: [RatingCriterion]
+    reviews: [Review]
+    reviewEvaluations: [ReviewEvaluation]
+    reviewEvaluationsByReviewId(reviewId: Int): [ReviewEvaluation]
   }
 `];

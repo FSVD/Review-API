@@ -1,5 +1,5 @@
-import { commonConnector } from '../_common/connectors/common.connectors';
-
-export function rootConnector(obj, args, context, info) {
-  return commonConnector(obj, args, context, info);
+export function getStackInfo() {
+  let stackInfo = '';
+  stackInfo = 'Server stack: MySQL, Express, GraphQL Server, Node';
+  return stackInfo;
 }

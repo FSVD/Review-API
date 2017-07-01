@@ -1,29 +1,30 @@
 export const schema = [`
   type Review {
     id: Int!
-    user_id: Int
-    subject_id: Int
+    userId: Int
+    subjectId: Int
     title(customTitle: String): String
     content(customContent: String): String
-    review_status: Int
-    review_evaluations: [ReviewEvaluation]
+    reviewStatus: Int
+    reviewEvaluations: [ReviewEvaluation]
     author: User
     subject: Subject
-    review_rating_criterions_values: [ReviewRatingCriterionValue]
+    reviewRatingCriterionsValues: [ReviewRatingCriterionValue]
   }
 
   type ReviewEvaluation {
     id: Int!
     type: Int
-    user_id: Int
-    review_id: Int
+    typeMeaning: String
+    userId: Int
+    reviewId: Int
   }
 
   type ReviewRatingCriterionValue {
     id: Int!
-    review_id: Int
-    rating_criterion_id: Int
+    reviewId: Int
+    ratingCriterionId: Int
     value: Int
-    rating_criterion: RatingCriterion
+    ratingCriterion: RatingCriterion
   }
 `];

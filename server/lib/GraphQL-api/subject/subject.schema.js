@@ -1,28 +1,28 @@
 export const schema = [`
   type Subject {
     id: Int!
-    category_id: Int
-    google_places_reference: String
-    category: SubjectCategory
+    subjectCategoryId: Int
+    googlePlacesReference: String
+    subjectCategory: SubjectCategory
     reviews: [Review]
   }
 
   type SubjectCategory {
     id: Int!
     name: String
-    rating_criterions: [RatingCriterion]
+    ratingCriterions: [RatingCriterion]
     subjects: [Subject]
   }
 
   type RatingCriterion {
     id: Int!
     name: String
-    subject_categories: [SubjectCategory]
+    subjectCategories: [SubjectCategory]
   }
 
   type SubjectCategoryRatingCriterion {
     id: Int!
-    subject_category_id: Int
-    rating_criterion_id: Int
+    subjectCategoryId: Int
+    ratingCriterionId: Int
   }
 `];

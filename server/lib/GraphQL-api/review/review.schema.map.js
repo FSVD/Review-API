@@ -8,10 +8,10 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
     uniqueKey: 'id',
     // tag the Review's fields
     fields: {
-      user_id: {
+      userId: {
         sqlColumn: 'user_id',
       },
-      subject_id: {
+      subjectId: {
         sqlColumn: 'subject_id',
       },
       title: {
@@ -20,22 +20,22 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
       content: {
         sqlColumn: 'content',
       },
-      review_status: {
+      reviewStatus: {
         sqlColumn: 'review_status',
       },
-      review_evaluations: {
+      reviewEvaluations: {
         sqlBatch: {
           thisKey: 'review_id',
           parentKey: 'id',
         },
       },
       author: {
-        sqlJoin: (userTable, reviewTable) => `${userTable}.user_id = ${reviewTable}.id`,
+        sqlJoin: (reviewTable, userTable) => `${reviewTable}.user_id = ${userTable}.id`,
       },
       subject: {
-        sqlJoin: (subjectTable, reviewTable) => `${subjectTable}.id = ${reviewTable}.id`,
+        sqlJoin: (reviewTable, subjectTable) => `${reviewTable}.subject_id = ${subjectTable}.id`,
       },
-      review_rating_criterions_values: {
+      reviewRatingCriterionsValues: {
         sqlBatch: {
           thisKey: 'review_id',
           parentKey: 'id',
@@ -52,10 +52,10 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
       type: {
         sqlColumn: 'type',
       },
-      user_id: {
+      userId: {
         sqlColumn: 'user_id',
       },
-      review_id: {
+      reviewId: {
         sqlColumn: 'review_id',
       },
     },
@@ -66,17 +66,17 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
     uniqueKey: 'id',
     // tag the ReviewRatingCriterionValue's fields
     fields: {
-      review_id: {
+      reviewId: {
         sqlColumn: 'type',
       },
-      rating_criterion_id: {
+      ratingCriterionId: {
         sqlColumn: 'rating_criterion_id',
       },
       value: {
         sqlColumn: 'value',
       },
-      rating_criterion: {
-        sqlJoin: (ratingCriterionTable, reviewRatingCriterionValueTable) => `${ratingCriterionTable}.rating_criterion_id = ${reviewRatingCriterionValueTable}.id`,
+      ratingCriterion: {
+        sqlJoin: (reviewRatingCriterionValueTable, ratingCriterionTable) => `${reviewRatingCriterionValueTable}.rating_criterion_id = ${ratingCriterionTable}.id`,
       },
     },
   },

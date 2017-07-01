@@ -8,14 +8,14 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
     uniqueKey: 'id',
     // tag the Subject's fields
     fields: {
-      category_id: {
-        sqlColumn: 'category_id',
+      subjectCategoryId: {
+        sqlColumn: 'subject_category_id',
       },
-      google_places_reference: {
+      googlePlacesReference: {
         sqlColumn: 'google_places_reference',
       },
-      category: {
-        sqlJoin: (categoryTable, subjectTable) => `${categoryTable}.category_id = ${subjectTable}.id`,
+      subjectCategory: {
+        sqlJoin: (subjectTable, subjectCategoryTable) => `${subjectTable}.subject_category_id = ${subjectCategoryTable}.id`,
       },
       reviews: {
         sqlBatch: {
@@ -34,20 +34,20 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
       name: {
         sqlColumn: 'name',
       },
-      rating_criterions: {
+      ratingCriterions: {
         // sqlJoin: (subjectCategoryTable, ratingCriterionsTable) => `${subjectCategoryTable}.id = ${ratingCriterionsTable}.id`,
         junctionTable: 'subject_category_rating_criterion',
         junctionTableKey: ['subject_category_id', 'rating_criterion_id'],
         junctionBatch: {
           thisKey: 'subject_category_id',
           parentKey: 'id',
-          sqlJoin: (subject_category_rating_criterion, rating_criterion) => `${subject_category_rating_criterion}.rating_criterion_id = ${rating_criterion}.id`,
+          sqlJoin: (subjectCategoryRatingCriterionTable, ratingCriterionTable) => `${subjectCategoryRatingCriterionTable}.rating_criterion_id = ${ratingCriterionTable}.id`,
         },
       },
       subjects: {
         // sqlJoin: (subjectCategoryTable, subjectTable) => `${subjectCategoryTable}.id = ${subjectTable}.id`,
         sqlBatch: {
-          thisKey: 'category_id',
+          thisKey: 'subject_category_id',
           parentKey: 'id',
         },
       },
@@ -62,13 +62,13 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
       name: {
         sqlColumn: 'name',
       },
-      subject_categories: {
+      subjectCategories: {
         junctionTable: 'subject_category_rating_criterion',
         junctionTableKey: ['rating_criterion_id', 'subject_category_id'],
         junctionBatch: {
           thisKey: 'rating_criterion_id',
           parentKey: 'id',
-          sqlJoin: (subject_category_rating_criterion, subject_category) => `${subject_category_rating_criterion}.subject_category_id = ${subject_category}.id`,
+          sqlJoin: (subjectCategoryRatingCriterionTable, subjectCategoryTable) => `${subjectCategoryRatingCriterionTable}.subject_category_id = ${subjectCategoryTable}.id`,
         },
       },
     },
@@ -79,10 +79,10 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
     uniqueKey: 'id',
     // tag the SubjectCategoryRatingCriterion's fields
     fields: {
-      subject_category_id: {
+      subjectCategoryId: {
         sqlColumn: 'subject_category_id',
       },
-      rating_criterion_id: {
+      ratingCriterionId: {
         sqlColumn: 'rating_criterion_id',
       },
     },

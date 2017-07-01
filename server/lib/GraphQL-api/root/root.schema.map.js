@@ -8,14 +8,17 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
       userById: {
         where: (table, args) => `${table}.id = ${args.id}`
       },
+      usersByFirstname: {
+        where: (table, args) => `${table}.first_name = '${args.firstName}'`
+      },
+      usersByNewsletterAgree: {
+        where: (table, args) => `${table}.newsletter_agree = ${args.newsletterAgree}`
+      },
       subjectById: {
         where: (table, args) => `${table}.id = ${args.id}`
       },
-      allUsersByFirstname: {
-        where: (table, args) => `${table}.first_name = '${args.firstName}'`
-      },
-      allUsersByNewsletterAgree: {
-        where: (table, args) => `${table}.newsletter_agree = ${args.newsletterAgree}`
+      reviewEvaluationsByReviewId: {
+        where: (table, args) => `${table}.review_id = ${args.reviewId}`
       },
     },
   },
