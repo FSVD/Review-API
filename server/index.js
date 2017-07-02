@@ -1,17 +1,35 @@
 // Require dotenv module to read .env file from root
 require('dotenv').config({ silent: true });
 
-// Require loadash which provides utilities to manage multidimensional array
-const _ = require('lodash');
+import express from 'express';
+// Import cors module to allow cross-origin resource sharing
+import cors from 'cors';
+// Import utilities from loadash
+import { zip } from 'lodash';
+// Import configuration module to check processes configurations
+import ConfigurationManager from './config/';
 
-// Require configuration module to check processes configurations
-const ConfigurationManager = require('./config/');
+const app = express();
+
+// Enable CORS for allowed domains
+const whitelist = ['http://127.0.0.1:4200'];
+const corsOptions = {
+  origin(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Domain not allowed by CORS'));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 
 // Create processes and ports arrays from environment variables
 const processes = process.env.PROCESSES.split(',');
 const ports = process.env.PORTS.split(',');
 
-const processesData = _.zip(processes, ports);
+const processesData = zip(processes, ports);
 
 processesData.map((currentProcessDataSet) => {
   const processType = currentProcessDataSet[0];
