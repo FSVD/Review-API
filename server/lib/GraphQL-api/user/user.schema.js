@@ -1,15 +1,15 @@
 export const schema = [`
   type User {
     id: Int!
-    username: String
-    firstName: String
-    lastName: String
-    fullName: String
-    password: String
-    email: String
+    username: String!
+    firstName: String!
+    lastName: String!
+    fullName: String!
+    password: String!
+    email: String!
     city: String
-    newsletterAgree: Boolean
-    userAccountStatus: Int
+    newsletterAgree: Boolean!
+    userAccountStatus: Int!
     reviews: [Review]
   }
 `];

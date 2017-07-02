@@ -14,4 +14,17 @@ export const schema = [`
     reviewEvaluations: [ReviewEvaluation]
     reviewEvaluationsByReviewId(reviewId: Int): [ReviewEvaluation]
   }
+
+  type Mutation {
+    addUser(
+      username: String!
+      firstName: String!
+      lastName: String!
+      password: String!
+      email: String!
+      city: String
+      newsletterAgree: Boolean!
+      userAccountStatus: Int!
+    ): User
+  }
 `];

@@ -1,5 +1,5 @@
 import { getStackInfo } from './root.connectors';
-import { getUserData } from '../user/user.connectors';
+import { getUserData, addUser } from '../user/user.connectors';
 import { getSubjectData } from '../subject/subject.connectors';
 import { getReviewData } from '../review/review.connectors';
 
@@ -18,5 +18,8 @@ export const resolvers = {
     reviews: (obj, args, context, info) => getReviewData(obj, args, context, info),
     reviewEvaluations: (obj, args, context, info) => getReviewData(obj, args, context, info),
     reviewEvaluationsByReviewId: (obj, args, context, info) => getReviewData(obj, args, context, info),
+  },
+  Mutation: {
+    addUser: (obj, args, context, info) => addUser(obj, args, context, info),
   },
 };
