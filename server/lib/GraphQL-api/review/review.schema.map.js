@@ -52,6 +52,9 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
       type: {
         sqlColumn: 'type',
       },
+      stringifiedType: {
+        sqlDeps: ['type'],
+      },
       userId: {
         sqlColumn: 'user_id',
       },

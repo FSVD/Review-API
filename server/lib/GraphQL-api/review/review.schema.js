@@ -15,7 +15,7 @@ export const schema = [`
   type ReviewEvaluation {
     id: Int!
     type: Int
-    typeMeaning: String
+    stringifiedType: String
     userId: Int
     reviewId: Int
   }

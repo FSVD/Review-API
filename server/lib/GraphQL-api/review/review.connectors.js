@@ -4,10 +4,9 @@ export function getReviewData(obj, args, context, info) {
   return mysqlConnector(obj, args, context, info);
 }
 
-export function typeToString(obj, args, context, info) {
-  console.log(obj.type);
-  let typeString = '';
-  if (obj.type === 1) { typeString = 'Like'; }
-  if (obj.type === 2) { typeString = 'Dislike'; }
-  return typeString;
+export function stringifyType(obj, args, context, info) {
+  let stringifiedType = '';
+  if (obj.type === 1) { stringifiedType = 'Like'; }
+  if (obj.type === 2) { stringifiedType = 'Dislike'; }
+  return stringifiedType;
 }

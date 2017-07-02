@@ -17,6 +17,9 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
       lastName: {
         sqlColumn: 'last_name',
       },
+      fullName: {
+        sqlDeps: ['first_name', 'last_name'],
+      },
       password: {
         sqlColumn: 'password',
       },

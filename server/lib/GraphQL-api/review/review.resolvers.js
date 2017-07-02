@@ -1,9 +1,9 @@
-import { typeToString } from './review.connectors';
+import { stringifyType } from './review.connectors';
 
 export const resolvers = {
   Review: {},
   ReviewEvaluation: {
-    typeMeaning: (obj, args, context, info) => typeToString(obj, args, context, info),
+    stringifiedType: (obj, args, context, info) => stringifyType(obj, args, context, info),
   },
   ReviewRatingCriterionValue: {},
 };
