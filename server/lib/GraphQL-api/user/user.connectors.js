@@ -27,7 +27,11 @@ export function addUser(obj, args, context, info) {
     updated_at: new Date(),
   })
     .save()
-    .then()
+    .then((result) => {
+      const parsedResult = JSON.parse(JSON.stringify(result));
+      const newUserId = { id: parsedResult.id };
+      return getUserData(obj, newUserId, context, info);
+    })
     .catch((err) => {
       return Promise.reject({ error: err, message: err.message, propagatedBy: { module: 'user connector', function: 'addUser' } });
     });
