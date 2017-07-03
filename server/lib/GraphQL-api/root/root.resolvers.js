@@ -1,5 +1,5 @@
 import { getStackInfo } from './root.connectors';
-import { getUserData, addUser } from '../user/user.connectors';
+import { getUserData, addUser, updateUser } from '../user/user.connectors';
 import { getSubjectData } from '../subject/subject.connectors';
 import { getReviewData } from '../review/review.connectors';
 
@@ -21,5 +21,6 @@ export const resolvers = {
   },
   Mutation: {
     addUser: (obj, args, context, info) => addUser(obj, args, context, info),
+    updateUser: (obj, args, context, info) => updateUser(obj, args, context, info),
   },
 };

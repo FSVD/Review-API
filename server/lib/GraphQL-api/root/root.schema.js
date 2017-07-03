@@ -26,5 +26,17 @@ export const schema = [`
       newsletterAgree: Boolean!
       userAccountStatus: Int!
     ): User
+    
+    updateUser(
+      id: Int
+      username: String!
+      firstName: String!
+      lastName: String!
+      password: String!
+      email: String!
+      city: String
+      newsletterAgree: Boolean!
+      userAccountStatus: Int!
+    ): User
   }
 `];

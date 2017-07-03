@@ -60,3 +60,41 @@ export function addUser(obj, args, context, info) {
       return Promise.reject({ error: err, message: err.message, propagatedBy: { module: 'user connector', function: 'addUser' } });
     });
 }
+
+export function updateUser(obj, args, context, info) {
+  return UserModel.where('id', args.id)
+    .save({
+      username: args.username,
+      first_name: args.firstName,
+      last_name: args.lastName,
+      password: args.password,
+      email: args.email,
+      city: args.city,
+      newsletter_agree: args.newsletterAgree,
+      user_account_status: args.userAccountStatus,
+      updated_at: new Date(),
+    },
+    {
+      method: 'update',
+      patch: true,
+    })
+    .then((result) => {
+      const parsedResult = JSON.parse(JSON.stringify(result));
+      const updateddUser = {
+        id: args.id,
+        username: parsedResult.username,
+        firstName: parsedResult.first_name,
+        lastName: parsedResult.last_name,
+        password: parsedResult.password,
+        email: parsedResult.email,
+        city: parsedResult.city,
+        newsletterAgree: parsedResult.newsletter_agree,
+        userAccountStatus: parsedResult.user_account_status,
+      };
+      console.log(parsedResult);
+      return updateddUser;
+    })
+    .catch((err) => {
+      return Promise.reject({ error: err, message: err.message, propagatedBy: { module: 'user connector', function: 'addUser' } });
+    });
+}
