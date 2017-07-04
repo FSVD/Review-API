@@ -8,5 +8,7 @@ export function mysqlConnector(obj, args, context, info) {
     knex.raw(sql)
   ).then((result) => {
     return result[0];
-  }), { dialect: 'mysql' });
+  }), { dialect: 'mysql' })
+    .catch((err) => { return err; }
+    );
 }

@@ -12,7 +12,9 @@ export function generateFullName(obj, args, context, info) {
       const parsedResult = JSON.parse(JSON.stringify(result));
       const fullName = `${parsedResult.first_name} ${parsedResult.last_name}`;
       return fullName;
-    });
+    })
+    .catch((err) => { return err; }
+    );
 }
 
 export function firstNameToUpperCase(obj, args, context, info) {
@@ -22,7 +24,9 @@ export function firstNameToUpperCase(obj, args, context, info) {
       const parsedResult = JSON.parse(JSON.stringify(result));
       const firstNameUpperCased = `${parsedResult.first_name}`.toUpperCase();
       return firstNameUpperCased;
-    });
+    })
+    .catch((err) => { return err; }
+    );
 }
 
 export function addUser(obj, args, context, info) {
@@ -42,7 +46,7 @@ export function addUser(obj, args, context, info) {
     .save()
     .then((result) => {
       const parsedResult = JSON.parse(JSON.stringify(result));
-      const newInsertedUser = {
+      const insertedUser = {
         id: parsedResult.id,
         username: parsedResult.username,
         firstName: parsedResult.first_name,
@@ -54,11 +58,10 @@ export function addUser(obj, args, context, info) {
         userAccountStatus: parsedResult.user_account_status,
         reviews: [],
       };
-      return newInsertedUser;
+      return insertedUser;
     })
-    .catch((err) => {
-      return Promise.reject({ error: err, message: err.message, propagatedBy: { module: 'user connector', function: 'addUser' } });
-    });
+    .catch((err) => { return err; }
+    );
 }
 
 export function updateUser(obj, args, context, info) {
@@ -91,10 +94,18 @@ export function updateUser(obj, args, context, info) {
         newsletterAgree: parsedResult.newsletter_agree,
         userAccountStatus: parsedResult.user_account_status,
       };
-      console.log(parsedResult);
       return updateddUser;
     })
-    .catch((err) => {
-      return Promise.reject({ error: err, message: err.message, propagatedBy: { module: 'user connector', function: 'addUser' } });
-    });
+    .catch((err) => { return err; }
+    );
+}
+
+export function deleteUser(obj, args, context, info) {
+  return UserModel.forge({ id: args.id })
+    .destroy()
+    .then(() => {
+      return { id: args.id };
+    })
+    .catch((err) => { return err; }
+    );
 }

@@ -38,5 +38,7 @@ export const schema = [`
       newsletterAgree: Boolean!
       userAccountStatus: Int!
     ): User
+
+    deleteUser(id: Int): User
   }
 `];
