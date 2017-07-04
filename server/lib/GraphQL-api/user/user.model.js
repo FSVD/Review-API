@@ -5,16 +5,22 @@ import {
 } from '../review/review.model';
 
 // User model
-const userModel = Bookshelf.Model.extend({
-  tableName: 'user',
+class userModel extends Bookshelf.Model {
+
+  get tableName () {
+    return 'user';
+  }
+
+  review() {
+    return this.hasMany('ReviewModel');
+  }
 
   reviewEvaluations() {
-    return this.hasMany('ReviewModel');
-  },
+    return this.hasMany('ReviewEvaluationModel');
+  }
 
-}/*, {
-  dependents: ['ReviewModel'],
-}*/);
+  // static dependents = ['ReviewModel', 'ReviewEvaluationModel'];
+}
 
 const UserModel = Bookshelf.model('userModel', userModel); // To avoid circular dependency we have to export using this bookshelf sintax
 

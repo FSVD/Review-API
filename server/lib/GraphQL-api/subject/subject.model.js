@@ -6,55 +6,66 @@ import {
 } from '../review/review.model';
 
 // Subject model
-const subjectModel = Bookshelf.Model.extend({
-  tableName: 'subject',
+class subjectModel extends Bookshelf.Model {
+  
+  get tableName() {
+    return 'subject';
+  }
 
-  category() {
+  subjectCategory() {
     return this.belongsTo('subjectCategoryModel');
-  },
+  }
 
   reviews() {
     return this.hasMany('ReviewModel');
-  },
+  }
 
-}, {
-  dependents: ['subjectCategoryModel', 'ReviewModel'],
-});
+  static dependents = ['subjectCategoryModel', 'ReviewModel']
+
+};
 
 // Subject' category model
-const subjectCategoryModel = Bookshelf.Model.extend({
-  tableName: 'subject_category',
+class subjectCategoryModel extends Bookshelf.Model {
+  
+  get tableName() {
+    return 'subject_category';
+  }
 
   ratingCriterions() {
     return this.hasMany('ratingCriterionModel');
-  },
+  }
 
   subjects() {
     return this.hasMany('subjectModel');
-  },
+  }
 
-}, {
-  dependents: ['ratingCriterionModel', 'subjectModel'],
-});
+  static dependents = ['ratingCriterionModel', 'subjectModel']
+
+};
 
 // Rating criterion model
-const ratingCriterionModel = Bookshelf.Model.extend({
-  tableName: 'rating_criterion',
+class ratingCriterionModel extends Bookshelf.Model{
+  
+  get tableName() {
+    return 'rating_criterion';
+  }
 
   subjectCategories() {
     return this.belongsToMany('subjectCategoryModel');
-  },
+  }
 
-}, {
-  dependents: ['reviewModel'],
-});
+  static dependents = ['SubjectCategoryModel'];
+
+};
 
 // Subject Category Rating criterion model
-const subjectCategoryRatingCriterionModel = Bookshelf.Model.extend({
-  tableName: 'subject_category_rating_criterion',
-}, {
-  dependents: ['reviewModel'],
-});
+class subjectCategoryRatingCriterionModel extends Bookshelf.Model {
+
+  get tableName() {
+    return 'subject_category_rating_criterion';
+  }
+
+};
 
 const SubjectModel = Bookshelf.model('subjectModel', subjectModel); // To avoid circular dependency we have to export using this bookshelf sintax
 const SubjectCategoryModel = Bookshelf.model('subjectCategoryModel', subjectCategoryModel);

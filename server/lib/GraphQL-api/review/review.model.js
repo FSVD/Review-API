@@ -11,36 +11,58 @@ import {
 } from '../subject/subject.model';
 
 // Review model
-const reviewModel = Bookshelf.Model.extend({
-  tableName: 'review',
+class reviewModel extends Bookshelf.Model {
 
-  reviewEvaluations() {
-    return this.hasMany('reviewEvaluationModel');
-  },
+  get tableName() {
+    return 'review';
+  }
 
   user() {
     return this.belongsTo('UserModel');
-  },
+  }
 
   subject() {
     return this.belongsTo('SubjectModel');
-  },
+  }
 
-}, {
-  dependents: ['reviewEvaluationModel', 'UserModel', 'SubjectModel'],
-});
+  reviewEvaluations() {
+    return this.hasMany('ReviewEvaluationModel');
+  }
+
+  reviewRatingCriterionValues() {
+    return this.hasMany('ReviewRatingCriterionValueModel');
+  }
+
+  static dependents = ['UserModel', 'SubjectModel', 'reviewEvaluationModel', 'ReviewRatingCriterionValueModel'];
+
+};
 
 // Review' evaluation model
-const reviewEvaluationModel = Bookshelf.Model.extend({
-  tableName: 'review_evaluation',
-}, {
-  dependents: ['reviewModel'],
-});
+class reviewEvaluationModel extends Bookshelf.Model {
+  
+  get tableName() {
+    return 'review_evaluation';
+  }
+
+  static dependents = ['ReviewModel'];
+}
+
+// Review' rating criterion values model
+class reviewRatingCriterionValueModel extends Bookshelf.Model {
+  
+  get tableName() {
+    return 'review_rating_criterion_value';
+  }
+
+  static dependents = ['ReviewModel'];
+}
 
 const ReviewModel = Bookshelf.model('reviewModel', reviewModel); // To avoid circular dependency we have to export using this bookshelf sintax
 const ReviewEvaluationModel = Bookshelf.model('reviewEvaluationModel', reviewEvaluationModel);
+const ReviewRatingCriterionValueModel = Bookshelf.model('reviewRatingCriterionValueModel', reviewRatingCriterionValueModel);
 
 export {
   ReviewModel,
   ReviewEvaluationModel,
+  ReviewRatingCriterionValueModel,
 };
