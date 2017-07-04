@@ -1,5 +1,6 @@
 import { mysqlConnector } from '../_common/connectors/common.connectors';
 import { UserModel } from './user.model';
+import Bookshelf from '../../../db';
 
 export function getUserData(obj, args, context, info) {
   return mysqlConnector(obj, args, context, info);
