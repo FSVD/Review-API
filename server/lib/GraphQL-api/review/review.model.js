@@ -18,43 +18,36 @@ class reviewModel extends Bookshelf.Model {
   }
 
   user() {
-    return this.belongsTo('UserModel');
+    return this.belongsTo('userModel');
   }
 
   subject() {
-    return this.belongsTo('SubjectModel');
+    return this.belongsTo('subjectModel');
   }
 
   reviewEvaluations() {
-    return this.hasMany('ReviewEvaluationModel');
+    return this.hasMany('reviewEvaluationModel');
   }
 
   reviewRatingCriterionValues() {
-    return this.hasMany('ReviewRatingCriterionValueModel');
+    return this.hasMany('reviewRatingCriterionValueModel');
   }
-
-  static dependents = ['UserModel', 'SubjectModel', 'reviewEvaluationModel', 'ReviewRatingCriterionValueModel'];
-
-};
+}
 
 // Review' evaluation model
 class reviewEvaluationModel extends Bookshelf.Model {
-  
+
   get tableName() {
     return 'review_evaluation';
   }
-
-  static dependents = ['ReviewModel'];
 }
 
 // Review' rating criterion values model
 class reviewRatingCriterionValueModel extends Bookshelf.Model {
-  
+
   get tableName() {
     return 'review_rating_criterion_value';
   }
-
-  static dependents = ['ReviewModel'];
 }
 
 const ReviewModel = Bookshelf.model('reviewModel', reviewModel); // To avoid circular dependency we have to export using this bookshelf sintax

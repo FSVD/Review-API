@@ -7,7 +7,7 @@ import {
 
 // Subject model
 class subjectModel extends Bookshelf.Model {
-  
+
   get tableName() {
     return 'subject';
   }
@@ -19,14 +19,11 @@ class subjectModel extends Bookshelf.Model {
   reviews() {
     return this.hasMany('ReviewModel');
   }
-
-  static dependents = ['subjectCategoryModel', 'ReviewModel']
-
-};
+}
 
 // Subject' category model
 class subjectCategoryModel extends Bookshelf.Model {
-  
+
   get tableName() {
     return 'subject_category';
   }
@@ -38,14 +35,11 @@ class subjectCategoryModel extends Bookshelf.Model {
   subjects() {
     return this.hasMany('subjectModel');
   }
-
-  static dependents = ['ratingCriterionModel', 'subjectModel']
-
-};
+}
 
 // Rating criterion model
 class ratingCriterionModel extends Bookshelf.Model{
-  
+
   get tableName() {
     return 'rating_criterion';
   }
@@ -53,10 +47,7 @@ class ratingCriterionModel extends Bookshelf.Model{
   subjectCategories() {
     return this.belongsToMany('subjectCategoryModel');
   }
-
-  static dependents = ['SubjectCategoryModel'];
-
-};
+}
 
 // Subject Category Rating criterion model
 class subjectCategoryRatingCriterionModel extends Bookshelf.Model {
@@ -64,8 +55,7 @@ class subjectCategoryRatingCriterionModel extends Bookshelf.Model {
   get tableName() {
     return 'subject_category_rating_criterion';
   }
-
-};
+}
 
 const SubjectModel = Bookshelf.model('subjectModel', subjectModel); // To avoid circular dependency we have to export using this bookshelf sintax
 const SubjectCategoryModel = Bookshelf.model('subjectCategoryModel', subjectCategoryModel);
