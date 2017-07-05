@@ -66,5 +66,5 @@ function executeProcess(processType, processPort, configurationResult) {
   process.env.PROCESS_TYPE = processType;
   process.env.PROCESS_PORT = processPort;
 
-  require(`./lib/${processType}`);
+  require(`./src/${processType}`);
 }

@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, '_public')));
 const viewDirs = [];
 app.set('views', viewDirs);
 app.set('view engine', 'hbs');
-viewDirs.push(path.resolve(__dirname, 'lib/_common/views'));
+viewDirs.push(path.resolve(__dirname, 'src/_common/views'));
 multiViews.setupMultiViews(app);
 
 // GraphQL endpoint and graphiql interface set up

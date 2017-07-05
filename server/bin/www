@@ -9,7 +9,7 @@ const processPort = process.env.PROCESS_PORT;
  * Module dependencies.
  */
 
-const app = require(`../lib/${processType}/app`);
+const app = require(`../src/${processType}/app`);
 const debug = require('debug')('server:server');
 const http = require('http');
 

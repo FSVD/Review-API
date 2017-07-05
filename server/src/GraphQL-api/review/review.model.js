@@ -1,6 +1,3 @@
-// In this file we'll create models based on our ORM (in this cade Bookshelf models)
-// After we'll import this model into connector
-
 import Bookshelf from '../../../db';
 import { UserModel } from '../user/user.model';
 import {
@@ -32,6 +29,8 @@ class reviewModel extends Bookshelf.Model {
   reviewRatingCriterionValues() {
     return this.hasMany('reviewRatingCriterionValueModel');
   }
+
+  static dependents = ['reviewEvaluations', 'reviewRatingCriterionValues'];
 }
 
 // Review' evaluation model
@@ -50,7 +49,7 @@ class reviewRatingCriterionValueModel extends Bookshelf.Model {
   }
 }
 
-const ReviewModel = Bookshelf.model('reviewModel', reviewModel); // To avoid circular dependency we have to export using this bookshelf sintax
+const ReviewModel = Bookshelf.model('reviewModel', reviewModel);
 const ReviewEvaluationModel = Bookshelf.model('reviewEvaluationModel', reviewEvaluationModel);
 const ReviewRatingCriterionValueModel = Bookshelf.model('reviewRatingCriterionValueModel', reviewRatingCriterionValueModel);
 

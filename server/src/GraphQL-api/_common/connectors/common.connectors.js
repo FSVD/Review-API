@@ -1,7 +1,5 @@
 import joinMonster from 'join-monster';
-
-// Require knex db configuration
-import { knex } from '../../../../db/index';
+import { knex } from '../../../../db/index'; // Import Knex instance for DB connection
 
 export function mysqlConnector(obj, args, context, info) {
   return joinMonster(info, {}, sql => (

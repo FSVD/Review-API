@@ -1,4 +1,7 @@
-import { stringifyType, getReviewData } from './review.connectors';
+import {
+  stringifyType,
+  getReviewData,
+} from './review.connectors';
 
 export const resolvers = {
   Query: {

@@ -7,6 +7,11 @@ export const schema = `
     ratingCriterions: [RatingCriterion]
   }
 
+  type Mutation {
+    deleteSubjectCategory(id: Int): SubjectCategory
+    deleteRatingCriterion(id: Int): RatingCriterion
+  }
+
   type Subject {
     id: Int!
     subjectCategoryId: Int

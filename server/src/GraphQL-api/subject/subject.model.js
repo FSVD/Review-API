@@ -1,9 +1,5 @@
 import Bookshelf from '../../../db';
-import { UserModel } from '../user/user.model';
-import {
-  ReviewModel,
-  ReviewEvaluationModel,
-} from '../review/review.model';
+import { ReviewModel } from '../review/review.model';
 
 // Subject model
 class subjectModel extends Bookshelf.Model {
@@ -19,6 +15,8 @@ class subjectModel extends Bookshelf.Model {
   reviews() {
     return this.hasMany('ReviewModel');
   }
+
+  static dependents = ['reviews'];
 }
 
 // Subject' category model
@@ -35,6 +33,12 @@ class subjectCategoryModel extends Bookshelf.Model {
   subjects() {
     return this.hasMany('subjectModel');
   }
+
+  subjectCategoryRatingCriterions() {
+    return this.belongsToMany('subjectCategoryRatingCriterionModel');
+  }
+
+  static dependents = ['subjectCategoryRatingCriterions'];
 }
 
 // Rating criterion model
@@ -47,6 +51,12 @@ class ratingCriterionModel extends Bookshelf.Model{
   subjectCategories() {
     return this.belongsToMany('subjectCategoryModel');
   }
+
+  subjectCategoryRatingCriterions() {
+    return this.belongsToMany('subjectCategoryRatingCriterionModel');
+  }
+
+  static dependents = ['subjectCategoryRatingCriterions'];
 }
 
 // Subject Category Rating criterion model
@@ -55,9 +65,17 @@ class subjectCategoryRatingCriterionModel extends Bookshelf.Model {
   get tableName() {
     return 'subject_category_rating_criterion';
   }
+
+  subjectCategories() {
+    return this.hasMany('subjectCategoryModel');
+  }
+
+  ratingCriterions() {
+    return this.hasMany('ratingCriterionModel');
+  }
 }
 
-const SubjectModel = Bookshelf.model('subjectModel', subjectModel); // To avoid circular dependency we have to export using this bookshelf sintax
+const SubjectModel = Bookshelf.model('subjectModel', subjectModel);
 const SubjectCategoryModel = Bookshelf.model('subjectCategoryModel', subjectCategoryModel);
 const RatingCriterionModel = Bookshelf.model('ratingCriterionModel', ratingCriterionModel);
 const SubjectCategoryRatingCriterionModel = Bookshelf.model('subjectCategoryRatingCriterionModel', subjectCategoryRatingCriterionModel);

@@ -45,7 +45,6 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
         sqlColumn: 'name',
       },
       ratingCriterions: {
-        // sqlJoin: (subjectCategoryTable, ratingCriterionsTable) => `${subjectCategoryTable}.id = ${ratingCriterionsTable}.id`,
         junctionTable: 'subject_category_rating_criterion',
         junctionTableKey: ['subject_category_id', 'rating_criterion_id'],
         junctionBatch: {
@@ -55,7 +54,6 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
         },
       },
       subjects: {
-        // sqlJoin: (subjectCategoryTable, subjectTable) => `${subjectCategoryTable}.id = ${subjectTable}.id`,
         sqlBatch: {
           thisKey: 'subject_category_id',
           parentKey: 'id',

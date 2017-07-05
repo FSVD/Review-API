@@ -15,7 +15,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '_public')));
 
 // View engine setup
-app.set('views', path.join(__dirname, 'lib/_common/views'));
+app.set('views', path.join(__dirname, 'src/_common/views'));
 app.set('view engine', 'hbs');
 
 // Import application's modules
