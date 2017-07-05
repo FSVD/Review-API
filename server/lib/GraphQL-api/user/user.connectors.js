@@ -1,6 +1,5 @@
 import { mysqlConnector } from '../_common/connectors/common.connectors';
 import { UserModel } from './user.model';
-import Bookshelf from '../../../db';
 
 export function getUserData(obj, args, context, info) {
   return mysqlConnector(obj, args, context, info);
@@ -14,7 +13,7 @@ export function generateFullName(obj, args, context, info) {
       const fullName = `${parsedResult.first_name} ${parsedResult.last_name}`;
       return fullName;
     })
-    .catch((err) => { return err; }
+    .catch((err) => { return err; },
     );
 }
 
@@ -26,7 +25,7 @@ export function firstNameToUpperCase(obj, args, context, info) {
       const firstNameUpperCased = `${parsedResult.first_name}`.toUpperCase();
       return firstNameUpperCased;
     })
-    .catch((err) => { return err; }
+    .catch((err) => { return err; },
     );
 }
 
@@ -61,7 +60,7 @@ export function addUser(obj, args, context, info) {
       };
       return insertedUser;
     })
-    .catch((err) => { return err; }
+    .catch((err) => { return err; },
     );
 }
 
@@ -97,7 +96,7 @@ export function updateUser(obj, args, context, info) {
       };
       return updateddUser;
     })
-    .catch((err) => { return err; }
+    .catch((err) => { return err; },
     );
 }
 
@@ -107,6 +106,6 @@ export function deleteUser(obj, args, context, info) {
     .then(() => {
       return { id: args.id };
     })
-    .catch((err) => { return err; }
+    .catch((err) => { return err; },
     );
 }

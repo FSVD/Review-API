@@ -19,7 +19,7 @@ class userModel extends Bookshelf.Model {
     return this.hasMany('ReviewEvaluationModel');
   }
 
-  // static dependents = ['ReviewModel', 'ReviewEvaluationModel'];
+  static dependents = ['ReviewModel', 'ReviewEvaluationModel'];
 }
 
 const UserModel = Bookshelf.model('userModel', userModel); // To avoid circular dependency we have to export using this bookshelf sintax

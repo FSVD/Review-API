@@ -1,4 +1,10 @@
-export const schema = [`
+export const schema = `
+  type Query {
+    reviews: [Review]
+    reviewEvaluations: [ReviewEvaluation]
+    reviewEvaluationsByReviewId(reviewId: Int): [ReviewEvaluation]
+  }
+
   type Review {
     id: Int!
     userId: Int
@@ -27,4 +33,4 @@ export const schema = [`
     value: Int
     ratingCriterion: RatingCriterion
   }
-`];
+`;

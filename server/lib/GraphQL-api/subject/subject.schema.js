@@ -1,4 +1,12 @@
-export const schema = [`
+export const schema = `
+  type Query {
+    subjectById(id: Int): Subject
+    subjects: [Subject]
+    subjectCategories: [SubjectCategory]
+    subjectCategoryRatingCriterions: [SubjectCategoryRatingCriterion]
+    ratingCriterions: [RatingCriterion]
+  }
+
   type Subject {
     id: Int!
     subjectCategoryId: Int
@@ -25,4 +33,4 @@ export const schema = [`
     subjectCategoryId: Int
     ratingCriterionId: Int
   }
-`];
+`;

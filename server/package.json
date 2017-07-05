@@ -28,6 +28,7 @@
     "join-monster-graphql-tools-adapter": "0.0.2",
     "knex": "^0.13.0",
     "lodash": "^4.17.4",
+    "merge-graphql-schemas": "^1.1.0",
     "morgan": "~1.8.1",
     "multi-views": "^0.1.1",
     "mysql": "^2.13.0",

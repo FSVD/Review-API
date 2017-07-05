@@ -19,7 +19,7 @@ export function stringifyType(obj, args, context, info) {
           const parsedResult = JSON.parse(JSON.stringify(result));
           throw new Error(`No recognized type for review evaluation ${obj.id} on review ${parsedResult.review_id}`);
         })
-        .catch((err) => { return err; }
+        .catch((err) => { return err; },
         );
     }
     return stringifiedType;

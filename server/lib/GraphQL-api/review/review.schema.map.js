@@ -2,6 +2,15 @@ import joinMonsterAdapt from 'join-monster-graphql-tools-adapter';
 import executableSchema from '../schema';
 
 const schemaMap = joinMonsterAdapt(executableSchema, {
+  Query: {
+    fields: {
+      // add a function to generate the "where condition"
+      reviewEvaluationsByReviewId: {
+        where: (table, args) => `${table}.review_id = ${args.reviewId}`,
+      },
+    },
+  },
+
   Review: {
     // map the Review object type to its SQL table
     sqlTable: 'review',
@@ -43,6 +52,7 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
       },
     },
   },
+
   ReviewEvaluation: {
     // map the ReviewEvaluation object type to its SQL table
     sqlTable: 'review_evaluation',
@@ -63,6 +73,7 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
       },
     },
   },
+
   ReviewRatingCriterionValue: {
     // map the ReviewRatingCriterionValue object type to its SQL table
     sqlTable: 'review_rating_criterion_value',
