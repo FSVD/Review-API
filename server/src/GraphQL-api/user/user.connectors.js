@@ -1,12 +1,12 @@
 import { mysqlConnector } from '../_common/connectors/common.connectors';
-import { UserModel } from './user.model';
+import { userModel } from './user.model';
 
 export function getUserData(obj, args, context, info) {
   return mysqlConnector(obj, args, context, info);
 }
 
 export function generateFullName(obj, args, context, info) {
-  return UserModel.where('id', obj.id)
+  return userModel.where('id', obj.id)
     .fetch({ columns: ['first_name', 'last_name'] })
     .then((result) => {
       const parsedResult = JSON.parse(JSON.stringify(result));
@@ -18,7 +18,7 @@ export function generateFullName(obj, args, context, info) {
 }
 
 export function firstNameToUpperCase(obj, args, context, info) {
-  return UserModel.where('id', obj.id)
+  return userModel.where('id', obj.id)
     .fetch({ columns: ['first_name'] })
     .then((result) => {
       const parsedResult = JSON.parse(JSON.stringify(result));
@@ -42,7 +42,7 @@ export function addUser(obj, args, context, info) {
     created_at: new Date(),
     updated_at: new Date(),
   };
-  return UserModel.forge(newUser)
+  return userModel.forge(newUser)
     .save()
     .then((result) => {
       const parsedResult = JSON.parse(JSON.stringify(result));
@@ -65,7 +65,7 @@ export function addUser(obj, args, context, info) {
 }
 
 export function updateUser(obj, args, context, info) {
-  return UserModel.where('id', args.id)
+  return userModel.where('id', args.id)
     .save({
       username: args.username,
       first_name: args.firstName,
@@ -101,7 +101,7 @@ export function updateUser(obj, args, context, info) {
 }
 
 export function deleteUser(obj, args, context, info) {
-  return UserModel.forge({ id: args.id })
+  return userModel.forge({ id: args.id })
     .destroy()
     .then(() => {
       return { id: args.id };

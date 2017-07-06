@@ -3,28 +3,28 @@
 
 import Bookshelf from '../../../db'; // Import Bookshelf instance for DB connection
 import {
-  ReviewModel,
-  ReviewEvaluationModel,
+  reviewModel,
+  reviewEvaluationModel,
 } from '../review/review.model'; // Import registered models
 
 // User model
-class userModel extends Bookshelf.Model {
+class UserModel extends Bookshelf.Model {
 
   get tableName () {
     return 'user';
   }
 
   review() {
-    return this.hasMany('reviewModel');
+    return this.hasMany('ReviewModel');
   }
 
   reviewEvaluations() {
-    return this.hasMany('reviewEvaluationModel');
+    return this.hasMany('ReviewEvaluationModel');
   }
 
   static dependents = ['review', 'reviewEvaluations']; // Set dependencies based on model's relations to anable cascade delete
 }
 
-const UserModel = Bookshelf.model('userModel', userModel); // Register model to Bookshelf registry plugin to avoid circular dependency
+const userModel = Bookshelf.model('UserModel', UserModel); // Register model to Bookshelf registry plugin to avoid circular dependency
 
-export { UserModel }; // Export registered model
+export { userModel }; // Export registered model

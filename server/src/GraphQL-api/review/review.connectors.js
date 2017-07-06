@@ -1,5 +1,5 @@
 import { mysqlConnector } from '../_common/connectors/common.connectors';
-import { ReviewEvaluationModel } from './review.model';
+import { reviewEvaluationModel } from './review.model';
 
 export function getReviewData(obj, args, context, info) {
   return mysqlConnector(obj, args, context, info);
@@ -13,7 +13,7 @@ export function stringifyType(obj, args, context, info) {
     } else if (obj.type === 2) {
       stringifiedType = 'Dislike';
     } else {
-      return ReviewEvaluationModel.where('id', obj.id)
+      return reviewEvaluationModel.where('id', obj.id)
         .fetch({ columns: ['review_id'] })
         .then((result) => {
           const parsedResult = JSON.parse(JSON.stringify(result));

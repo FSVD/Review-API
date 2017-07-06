@@ -1,40 +1,40 @@
 import Bookshelf from '../../../db';
-import { UserModel } from '../user/user.model';
+import { userModel } from '../user/user.model';
 import {
-  SubjectModel,
-  SubjectCategoryModel,
-  RatingCriterionModel,
-  SubjectCategoryRatingCriterionModel,
+  subjectModel,
+  subjectCategoryModel,
+  ratingCriterionModel,
+  subjectCategoryRatingCriterionModel,
 } from '../subject/subject.model';
 
 // Review model
-class reviewModel extends Bookshelf.Model {
+class ReviewModel extends Bookshelf.Model {
 
   get tableName() {
     return 'review';
   }
 
   user() {
-    return this.belongsTo('userModel');
+    return this.belongsTo('UserModel');
   }
 
   subject() {
-    return this.belongsTo('subjectModel');
+    return this.belongsTo('SubjectModel');
   }
 
   reviewEvaluations() {
-    return this.hasMany('reviewEvaluationModel');
+    return this.hasMany('ReviewEvaluationModel');
   }
 
   reviewRatingCriterionValues() {
-    return this.hasMany('reviewRatingCriterionValueModel');
+    return this.hasMany('ReviewRatingCriterionValueModel');
   }
 
   static dependents = ['reviewEvaluations', 'reviewRatingCriterionValues'];
 }
 
 // Review' evaluation model
-class reviewEvaluationModel extends Bookshelf.Model {
+class ReviewEvaluationModel extends Bookshelf.Model {
 
   get tableName() {
     return 'review_evaluation';
@@ -42,19 +42,19 @@ class reviewEvaluationModel extends Bookshelf.Model {
 }
 
 // Review' rating criterion values model
-class reviewRatingCriterionValueModel extends Bookshelf.Model {
+class ReviewRatingCriterionValueModel extends Bookshelf.Model {
 
   get tableName() {
     return 'review_rating_criterion_value';
   }
 }
 
-const ReviewModel = Bookshelf.model('reviewModel', reviewModel);
-const ReviewEvaluationModel = Bookshelf.model('reviewEvaluationModel', reviewEvaluationModel);
-const ReviewRatingCriterionValueModel = Bookshelf.model('reviewRatingCriterionValueModel', reviewRatingCriterionValueModel);
+const reviewModel = Bookshelf.model('ReviewModel', ReviewModel);
+const reviewEvaluationModel = Bookshelf.model('ReviewEvaluationModel', ReviewEvaluationModel);
+const reviewRatingCriterionValueModel = Bookshelf.model('ReviewRatingCriterionValueModel', ReviewRatingCriterionValueModel);
 
 export {
-  ReviewModel,
-  ReviewEvaluationModel,
-  ReviewRatingCriterionValueModel,
+  reviewModel,
+  reviewEvaluationModel,
+  reviewRatingCriterionValueModel,
 };

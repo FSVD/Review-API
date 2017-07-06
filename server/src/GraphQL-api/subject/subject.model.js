@@ -1,15 +1,15 @@
 import Bookshelf from '../../../db';
-import { ReviewModel } from '../review/review.model';
+import { reviewModel } from '../review/review.model';
 
 // Subject model
-class subjectModel extends Bookshelf.Model {
+class SubjectModel extends Bookshelf.Model {
 
   get tableName() {
     return 'subject';
   }
 
   subjectCategory() {
-    return this.belongsTo('subjectCategoryModel');
+    return this.belongsTo('SubjectCategoryModel');
   }
 
   reviews() {
@@ -20,69 +20,69 @@ class subjectModel extends Bookshelf.Model {
 }
 
 // Subject' category model
-class subjectCategoryModel extends Bookshelf.Model {
+class SubjectCategoryModel extends Bookshelf.Model {
 
   get tableName() {
     return 'subject_category';
   }
 
   ratingCriterions() {
-    return this.hasMany('ratingCriterionModel');
+    return this.hasMany('RatingCriterionModel');
   }
 
   subjects() {
-    return this.hasMany('subjectModel');
+    return this.hasMany('SubjectModel');
   }
 
   subjectCategoryRatingCriterions() {
-    return this.hasMany('subjectCategoryRatingCriterionModel');
+    return this.hasMany('SubjectCategoryRatingCriterionModel');
   }
 
   static dependents = ['subjectCategoryRatingCriterions'];
 }
 
 // Rating criterion model
-class ratingCriterionModel extends Bookshelf.Model{
+class RatingCriterionModel extends Bookshelf.Model{
 
   get tableName() {
     return 'rating_criterion';
   }
 
   subjectCategories() {
-    return this.belongsToMany('subjectCategoryModel');
+    return this.belongsToMany('SubjectCategoryModel');
   }
 
   subjectCategoryRatingCriterions() {
-    return this.hasMany('subjectCategoryRatingCriterionModel');
+    return this.hasMany('SubjectCategoryRatingCriterionModel');
   }
 
   static dependents = ['subjectCategoryRatingCriterions'];
 }
 
 // Subject Category Rating criterion model
-class subjectCategoryRatingCriterionModel extends Bookshelf.Model {
+class SubjectCategoryRatingCriterionModel extends Bookshelf.Model {
 
   get tableName() {
     return 'subject_category_rating_criterion';
   }
 
   subjectCategories() {
-    return this.hasMany('subjectCategoryModel');
+    return this.hasMany('SubjectCategoryModel');
   }
 
   ratingCriterions() {
-    return this.hasMany('ratingCriterionModel');
+    return this.hasMany('RatingCriterionModel');
   }
 }
 
-const SubjectModel = Bookshelf.model('subjectModel', subjectModel);
-const SubjectCategoryModel = Bookshelf.model('subjectCategoryModel', subjectCategoryModel);
-const RatingCriterionModel = Bookshelf.model('ratingCriterionModel', ratingCriterionModel);
-const SubjectCategoryRatingCriterionModel = Bookshelf.model('subjectCategoryRatingCriterionModel', subjectCategoryRatingCriterionModel);
+const subjectModel = Bookshelf.model('SubjectModel', SubjectModel);
+const subjectCategoryModel = Bookshelf.model('SubjectCategoryModel', SubjectCategoryModel);
+const ratingCriterionModel = Bookshelf.model('RatingCriterionModel', RatingCriterionModel);
+const subjectCategoryRatingCriterionModel = Bookshelf.model('SubjectCategoryRatingCriterionModel', SubjectCategoryRatingCriterionModel);
 
 export {
-  SubjectModel,
-  SubjectCategoryModel,
-  RatingCriterionModel,
-  SubjectCategoryRatingCriterionModel,
+  subjectModel,
+  subjectCategoryModel,
+  ratingCriterionModel,
+  subjectCategoryRatingCriterionModel,
 };

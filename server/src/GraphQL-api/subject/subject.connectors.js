@@ -1,7 +1,7 @@
 import { mysqlConnector } from '../_common/connectors/common.connectors';
 import {
-  SubjectCategoryModel,
-  RatingCriterionModel,
+  subjectCategoryModel,
+  ratingCriterionModel,
 } from './subject.model';
 
 export function getSubjectData(obj, args, context, info) {
@@ -9,7 +9,7 @@ export function getSubjectData(obj, args, context, info) {
 }
 
 export function deleteSubjectCategory(obj, args, context, info) {
-  return SubjectCategoryModel.forge({ id: args.id })
+  return subjectCategoryModel.forge({ id: args.id })
     .destroy()
     .then(() => {
       return { id: args.id };
@@ -19,7 +19,7 @@ export function deleteSubjectCategory(obj, args, context, info) {
 }
 
 export function deleteRatingCriterion(obj, args, context, info) {
-  return RatingCriterionModel.forge({ id: args.id })
+  return ratingCriterionModel.forge({ id: args.id })
     .destroy()
     .then(() => {
       return { id: args.id };
