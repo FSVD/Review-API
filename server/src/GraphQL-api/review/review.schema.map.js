@@ -5,6 +5,9 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
   Query: {
     fields: {
       // add a function to generate the "where condition"
+      reviewById: {
+        where: (table, args) => `${table}.id = ${args.id}`,
+      },
       reviewEvaluationsByReviewId: {
         where: (table, args) => `${table}.review_id = ${args.reviewId}`,
       },

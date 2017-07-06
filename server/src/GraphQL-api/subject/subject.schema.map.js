@@ -8,6 +8,12 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
       subjectById: {
         where: (table, args) => `${table}.id = ${args.id}`,
       },
+      subjectCategoryById: {
+        where: (table, args) => `${table}.id = ${args.id}`,
+      },
+      ratingCriterionById: {
+        where: (table, args) => `${table}.id = ${args.id}`,
+      },
     },
   },
 

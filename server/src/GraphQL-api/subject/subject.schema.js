@@ -2,10 +2,10 @@ export const schema = `
   type Query {
     subjectById(id: Int): Subject
     subjects: [Subject]
+    subjectCategoryById(id:Int): SubjectCategory
     subjectCategories: [SubjectCategory]
-    subjectCategoryRatingCriterions(subjectCategoryId: Int): [SubjectCategoryRatingCriterion]
+    ratingCriterionById(id:Int): RatingCriterion
     ratingCriterions: [RatingCriterion]
-    ratingCriterionSubjectCategories(ratingCriterionId: Int): [SubjectCategoryRatingCriterion]
   }
 
   type Mutation {
