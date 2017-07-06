@@ -35,7 +35,7 @@ class subjectCategoryModel extends Bookshelf.Model {
   }
 
   subjectCategoryRatingCriterions() {
-    return this.belongsToMany('subjectCategoryRatingCriterionModel');
+    return this.hasMany('subjectCategoryRatingCriterionModel');
   }
 
   static dependents = ['subjectCategoryRatingCriterions'];
@@ -53,7 +53,7 @@ class ratingCriterionModel extends Bookshelf.Model{
   }
 
   subjectCategoryRatingCriterions() {
-    return this.belongsToMany('subjectCategoryRatingCriterionModel');
+    return this.hasMany('subjectCategoryRatingCriterionModel');
   }
 
   static dependents = ['subjectCategoryRatingCriterions'];

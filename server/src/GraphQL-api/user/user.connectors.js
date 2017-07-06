@@ -31,14 +31,14 @@ export function firstNameToUpperCase(obj, args, context, info) {
 
 export function addUser(obj, args, context, info) {
   const newUser = {
-    username: args.username || 'placeholderUsername',
+    username: args.username,
     first_name: args.firstName,
     last_name: args.lastName,
-    password: args.password || 'placeholderPassword',
-    email: args.email || 'placeholder@icloud.com',
+    password: args.password,
+    email: args.email,
     city: args.city,
-    newsletter_agree: args.newsletterAgree || true,
-    user_account_status: args.userAccountStatus || 1,
+    newsletter_agree: args.newsletterAgree,
+    user_account_status: args.userAccountStatus,
     created_at: new Date(),
     updated_at: new Date(),
   };

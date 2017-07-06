@@ -3,8 +3,9 @@ export const schema = `
     subjectById(id: Int): Subject
     subjects: [Subject]
     subjectCategories: [SubjectCategory]
-    subjectCategoryRatingCriterions: [SubjectCategoryRatingCriterion]
+    subjectCategoryRatingCriterions(subjectCategoryId: Int): [SubjectCategoryRatingCriterion]
     ratingCriterions: [RatingCriterion]
+    ratingCriterionSubjectCategories(ratingCriterionId: Int): [SubjectCategoryRatingCriterion]
   }
 
   type Mutation {
