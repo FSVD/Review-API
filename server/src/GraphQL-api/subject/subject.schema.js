@@ -19,6 +19,7 @@ export const schema = `
     googlePlacesReference: String
     subjectCategory: SubjectCategory
     reviews: [Review]
+    ratingCriterionsValuesAverage: [RatingCriterionValuesAverage]
   }
 
   type SubjectCategory {
@@ -38,5 +39,12 @@ export const schema = `
     id: Int!
     subjectCategoryId: Int
     ratingCriterionId: Int
+  }
+
+  type RatingCriterionValuesAverage {
+    ratingCriterionId: Int
+    ratingCriterionName: String
+    totalValuesCount: Int
+    valuesAverage: Float
   }
 `;
