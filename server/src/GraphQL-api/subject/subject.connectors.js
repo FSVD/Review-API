@@ -33,7 +33,8 @@ export function deleteRatingCriterion(obj, args, context, info) {
 
 export function getRatingCriterionsValuesAverage(obj, args, context, info) {
   const sql = `
-    SELECT ratingCriterion.id AS "ratingCriterionId",
+    SELECT
+      ratingCriterion.id AS "ratingCriterionId",
       ratingCriterion.name AS "ratingCriterionName",
       SUM(reviewRatingCriterionValue.value) AS "totalValuesSum",
       COUNT(reviewRatingCriterionValue.value) AS "totalValuesCount",
