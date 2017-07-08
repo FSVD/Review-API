@@ -3,7 +3,7 @@ import {
   deleteSubjectCategory,
   deleteRatingCriterion,
   getRatingCriterionsValuesAverage,
-  getRatingCriterionsValuesAverageKnex,
+  // getRatingCriterionsValuesAverageKnex,
 } from './subject.connectors';
 
 export const resolvers = {
@@ -23,6 +23,7 @@ export const resolvers = {
 
   Subject: {
     ratingCriterionsValuesAverage: (obj, args, context, info) => getRatingCriterionsValuesAverage(obj, args, context, info),
+    // ratingCriterionsValuesAverage: (obj, args, context, info) => getRatingCriterionsValuesAverageRawQuery(obj, args, context, info),
   },
 
   SubjectCategory: {},
