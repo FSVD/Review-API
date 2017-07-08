@@ -1,11 +1,9 @@
 import { knex } from '../../../db/index'; // Import Knex instance for DB connection
 import { mysqlConnector } from '../_common/connectors/common.connectors';
 import {
-  subjectModel,
   subjectCategoryModel,
   ratingCriterionModel,
 } from './subject.model';
-import { reviewRatingCriterionValueModel } from '../review/review.model';
 
 export function getSubjectData(obj, args, context, info) {
   return mysqlConnector(obj, args, context, info);
@@ -31,7 +29,8 @@ export function deleteRatingCriterion(obj, args, context, info) {
     );
 }
 
-export function getRatingCriterionsValuesAverage(obj, args, context, info) {
+// Get rating Criterions Values Average passing a raw query to Knex
+export function getRatingCriterionsValuesAverageRawQuery(obj, args, context, info) {
   const sql = `
     SELECT
       ratingCriterion.id AS "ratingCriterionId",
@@ -53,22 +52,23 @@ export function getRatingCriterionsValuesAverage(obj, args, context, info) {
     );
 }
 
-export function getRatingCriterionsValuesAverageKnex(obj, args, context, info) {
+// Get rating Criterions Values Average building a query with Knex
+export function getRatingCriterionsValuesAverage(obj, args, context, info) {
   return knex.select(
     'ratingCriterion.id AS ratingCriterionId',
     'ratingCriterion.name AS ratingCriterionName',
-    'SUM(reviewRatingCriterionValue.value) AS totalValuesSum',
-    'COUNT(reviewRatingCriterionValue.value) AS totalValuesCount',
-    'ROUND(SUM(reviewRatingCriterionValue.value)/COUNT(reviewRatingCriterionValue.value), 1) AS valuesAverage')
+    knex.raw('SUM(reviewRatingCriterionValue.value) AS totalValuesSum'),
+    knex.raw('COUNT(reviewRatingCriterionValue.value) AS totalValuesCount'),
+    knex.raw('ROUND(SUM(reviewRatingCriterionValue.value)/COUNT(reviewRatingCriterionValue.value), 1) AS valuesAverage'))
     .from('subject AS sbj')
     .join('review AS rvw', 'rvw.subject_id', 'sbj.id')
     .join('review_rating_criterion_value AS reviewRatingCriterionValue', 'reviewRatingCriterionValue.review_id', 'rvw.id')
     .join('rating_criterion AS ratingCriterion', 'ratingCriterion.id', 'reviewRatingCriterionValue.rating_criterion_id')
-    .where(`subject_id = ${obj.id}`)
+    .where('subject_id', '=', `${obj.id}`)
     .groupBy('reviewRatingCriterionValue.rating_criterion_id')
     .then((result) => {
       console.log(result);
-      // return result[0];
+      return result;
     })
     .catch((err) => { return err; },
     );

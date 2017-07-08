@@ -23,7 +23,6 @@ export const resolvers = {
 
   Subject: {
     ratingCriterionsValuesAverage: (obj, args, context, info) => getRatingCriterionsValuesAverage(obj, args, context, info),
-    // ratingCriterionsValuesAverage: (obj, args, context, info) => getRatingCriterionsValuesAverageKnex(obj, args, context, info),
   },
 
   SubjectCategory: {},
