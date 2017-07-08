@@ -56,10 +56,10 @@ export function getRatingCriterionsValuesAverageRawQuery(obj, args, context, inf
 export function getRatingCriterionsValuesAverage(obj, args, context, info) {
   return knex.select(
     'ratingCriterion.id AS ratingCriterionId',
-    'ratingCriterion.name AS ratingCriterionName',
-    knex.raw('SUM(reviewRatingCriterionValue.value) AS totalValuesSum'),
-    knex.raw('COUNT(reviewRatingCriterionValue.value) AS totalValuesCount'),
-    knex.raw('ROUND(SUM(reviewRatingCriterionValue.value)/COUNT(reviewRatingCriterionValue.value), 1) AS valuesAverage'))
+    'ratingCriterion.name AS ratingCriterionName')
+    .sum('reviewRatingCriterionValue.value AS totalValuesSum')
+    .count('reviewRatingCriterionValue.value AS totalValuesCount')
+    .select(knex.raw('ROUND(SUM(reviewRatingCriterionValue.value)/COUNT(reviewRatingCriterionValue.value), 1) AS valuesAverage'))
     .from('subject AS sbj')
     .join('review AS rvw', 'rvw.subject_id', 'sbj.id')
     .join('review_rating_criterion_value AS reviewRatingCriterionValue', 'reviewRatingCriterionValue.review_id', 'rvw.id')
@@ -67,7 +67,6 @@ export function getRatingCriterionsValuesAverage(obj, args, context, info) {
     .where('subject_id', '=', `${obj.id}`)
     .groupBy('reviewRatingCriterionValue.rating_criterion_id')
     .then((result) => {
-      console.log(result);
       return result;
     })
     .catch((err) => { return err; },
