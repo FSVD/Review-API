@@ -1,5 +1,8 @@
 import { knex } from '../../../db/index'; // Import Knex instance for DB connection
-import { mysqlConnector } from '../_common/connectors/common.connectors';
+import {
+  mysqlConnector,
+  deleteItem,
+} from '../_common/connectors/common.connectors';
 import {
   subjectCategoryModel,
   ratingCriterionModel,
@@ -10,23 +13,13 @@ export function getSubjectData(obj, args, context, info) {
 }
 
 export function deleteSubjectCategory(obj, args, context, info) {
-  return subjectCategoryModel.forge({ id: args.id })
-    .destroy()
-    .then(() => {
-      return { id: args.id };
-    })
-    .catch((err) => { return err; },
-    );
+  const item = subjectCategoryModel;
+  return deleteItem(obj, args, context, info, item);
 }
 
 export function deleteRatingCriterion(obj, args, context, info) {
-  return ratingCriterionModel.forge({ id: args.id })
-    .destroy()
-    .then(() => {
-      return { id: args.id };
-    })
-    .catch((err) => { return err; },
-    );
+  const item = ratingCriterionModel;
+  return deleteItem(obj, args, context, info, item);
 }
 
 // Get rating Criterions Values Average passing a raw query to Knex

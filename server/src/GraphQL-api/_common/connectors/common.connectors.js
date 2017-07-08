@@ -10,3 +10,13 @@ export function mysqlConnector(obj, args, context, info) {
     .catch((err) => { return err; }
     );
 }
+
+export function deleteItem(obj, args, context, info, item) {
+  return item.forge({ id: args.id })
+    .destroy()
+    .then(() => {
+      return { id: args.id };
+    })
+    .catch((err) => { return err; },
+    );
+}

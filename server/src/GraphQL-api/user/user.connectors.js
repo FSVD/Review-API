@@ -1,4 +1,7 @@
-import { mysqlConnector } from '../_common/connectors/common.connectors';
+import {
+  mysqlConnector,
+  deleteItem,
+} from '../_common/connectors/common.connectors';
 import { userModel } from './user.model';
 
 export function getUserData(obj, args, context, info) {
@@ -101,11 +104,6 @@ export function updateUser(obj, args, context, info) {
 }
 
 export function deleteUser(obj, args, context, info) {
-  return userModel.forge({ id: args.id })
-    .destroy()
-    .then(() => {
-      return { id: args.id };
-    })
-    .catch((err) => { return err; },
-    );
+  const item = userModel;
+  return deleteItem(obj, args, context, info, item);
 }
