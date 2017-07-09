@@ -5,7 +5,7 @@ export function getReviewData(obj, args, context, info) {
   return mysqlConnector(obj, args, context, info);
 }
 
-export function stringifyType(obj, args, context, info) {
+export function stringifyReviewEvaluationType(obj, args, context, info) {
   try {
     let stringifiedType = '';
     if (obj.type === 1) {
@@ -31,4 +31,7 @@ export function stringifyType(obj, args, context, info) {
 
 export function addReview(obj, args, context, info) {
   console.log(args);
+  // Perform multiple insert wrapped in a transaction,
+  // First: insert review
+  // Second: Based on created review id insert rating criterions values
 }

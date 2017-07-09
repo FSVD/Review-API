@@ -65,7 +65,7 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
       type: {
         sqlColumn: 'type',
       },
-      stringifiedType: {
+      reviewEvaluationStringifiedType: {
         sqlDeps: ['type'],
       },
       userId: {

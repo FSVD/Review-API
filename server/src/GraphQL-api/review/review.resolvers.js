@@ -1,5 +1,5 @@
 import {
-  stringifyType,
+  stringifyReviewEvaluationType,
   getReviewData,
   addReview,
 } from './review.connectors';
@@ -19,7 +19,7 @@ export const resolvers = {
   Review: {},
 
   ReviewEvaluation: {
-    stringifiedType: (obj, args, context, info) => stringifyType(obj, args, context, info),
+    reviewEvaluationStringifiedType: (obj, args, context, info) => stringifyReviewEvaluationType(obj, args, context, info),
   },
 
   ReviewRatingCriterionValue: {},
