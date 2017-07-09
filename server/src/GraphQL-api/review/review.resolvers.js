@@ -1,6 +1,7 @@
 import {
   stringifyType,
   getReviewData,
+  addReview,
 } from './review.connectors';
 
 export const resolvers = {
@@ -10,6 +11,11 @@ export const resolvers = {
     reviewEvaluations: (obj, args, context, info) => getReviewData(obj, args, context, info),
     reviewEvaluationsByReviewId: (obj, args, context, info) => getReviewData(obj, args, context, info),
   },
+
+  Mutation: {
+    addReview: (obj, args, context, info) => addReview(obj, args, context, info),
+  },
+
   Review: {},
 
   ReviewEvaluation: {

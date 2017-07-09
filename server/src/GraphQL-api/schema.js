@@ -6,11 +6,11 @@ import { schema as ReviewSchema } from './review/review.schema';
 import { schema as SubjectSchema } from './subject/subject.schema';
 
 import { resolvers as UserResolvers } from './user/user.resolvers';
-import { resolvers as SubjectResolvers } from './subject/subject.resolvers';
 import { resolvers as ReviewResolvers } from './review/review.resolvers';
+import { resolvers as SubjectResolvers } from './subject/subject.resolvers';
 
 const schema = mergeTypes([UserSchema, ReviewSchema, SubjectSchema]);
-const resolvers = mergeResolvers([UserResolvers, SubjectResolvers, ReviewResolvers]);
+const resolvers = mergeResolvers([UserResolvers, ReviewResolvers, SubjectResolvers]);
 
 const executableSchema = makeExecutableSchema({
   typeDefs: schema,

@@ -28,3 +28,7 @@ export function stringifyType(obj, args, context, info) {
     return err;
   }
 }
+
+export function addReview(obj, args, context, info) {
+  console.log(args);
+}

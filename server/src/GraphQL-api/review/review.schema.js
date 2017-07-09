@@ -6,12 +6,23 @@ export const schema = `
     reviewEvaluationsByReviewId(reviewId: Int): [ReviewEvaluation]
   }
 
+  type Mutation {
+    addReview(
+      userId: Int!
+      subjectId: Int!
+      title: String!
+      content: String!
+      reviewStatus: Int!
+      reviewRatingCriterionsValues: [ReviewRatingCriterionValueInput]!
+    ): Review
+  }
+
   type Review {
     id: Int!
     userId: Int
     subjectId: Int
-    title(customTitle: String): String
-    content(customContent: String): String
+    title: String
+    content: String
     reviewStatus: Int
     reviewEvaluations: [ReviewEvaluation]
     author: User
@@ -33,5 +44,10 @@ export const schema = `
     ratingCriterionId: Int
     value: Int
     ratingCriterion: RatingCriterion
+  }
+
+  input ReviewRatingCriterionValueInput {
+    ratingCriterionId: Int
+    value: Int
   }
 `;
