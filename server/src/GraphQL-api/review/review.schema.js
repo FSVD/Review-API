@@ -12,7 +12,6 @@ export const schema = `
       subjectId: Int!
       title: String!
       content: String!
-      reviewStatus: Int!
       reviewRatingCriterionsValues: [ReviewRatingCriterionValueInput]!
     ): Review
   }
