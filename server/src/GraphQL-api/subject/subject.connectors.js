@@ -59,8 +59,8 @@ export function getRatingCriterionsValuesAverage(obj, args, context, info) {
     .where('subject_id', '=', `${obj.id}`)
     .groupBy('reviewRatingCriterionValue.rating_criterion_id')
     .then((result) => {
-      result.map((ratingCriterion) => {
-        ratingCriterion.valuesAverage = Math.round(ratingCriterion.valuesAverage * 10) / 10;
+      result.map((ratingCriterionInfo) => {
+        ratingCriterionInfo.valuesAverage = Math.round(ratingCriterionInfo.valuesAverage * 10) / 10;
       });
       return result;
     })
