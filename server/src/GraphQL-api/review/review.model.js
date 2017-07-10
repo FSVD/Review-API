@@ -1,4 +1,4 @@
-import Bookshelf from '../../../db';
+import bookshelf from '../../../db';
 import { userModel } from '../user/user.model';
 import {
   subjectModel,
@@ -8,7 +8,7 @@ import {
 } from '../subject/subject.model';
 
 // Review model
-class ReviewModel extends Bookshelf.Model {
+class ReviewModel extends bookshelf.Model {
 
   get tableName() {
     return 'review';
@@ -34,7 +34,7 @@ class ReviewModel extends Bookshelf.Model {
 }
 
 // Review' evaluation model
-class ReviewEvaluationModel extends Bookshelf.Model {
+class ReviewEvaluationModel extends bookshelf.Model {
 
   get tableName() {
     return 'review_evaluation';
@@ -42,19 +42,29 @@ class ReviewEvaluationModel extends Bookshelf.Model {
 }
 
 // Review' rating criterion values model
-class ReviewRatingCriterionValueModel extends Bookshelf.Model {
+class ReviewRatingCriterionValueModel extends bookshelf.Model {
 
   get tableName() {
     return 'review_rating_criterion_value';
   }
 }
 
-const reviewModel = Bookshelf.model('ReviewModel', ReviewModel);
-const reviewEvaluationModel = Bookshelf.model('ReviewEvaluationModel', ReviewEvaluationModel);
-const reviewRatingCriterionValueModel = Bookshelf.model('ReviewRatingCriterionValueModel', ReviewRatingCriterionValueModel);
+// Review' rating criterion values collection
+class ReviewRatingCriterionValueCollection extends bookshelf.Collection{
+
+  get model() {
+    return ReviewRatingCriterionValueModel;
+  }
+}
+
+const reviewModel = bookshelf.model('ReviewModel', ReviewModel);
+const reviewEvaluationModel = bookshelf.model('ReviewEvaluationModel', ReviewEvaluationModel);
+const reviewRatingCriterionValueModel = bookshelf.model('ReviewRatingCriterionValueModel', ReviewRatingCriterionValueModel);
+const reviewRatingCriterionValueCollection = ReviewRatingCriterionValueCollection;
 
 export {
   reviewModel,
   reviewEvaluationModel,
   reviewRatingCriterionValueModel,
+  reviewRatingCriterionValueCollection,
 };
