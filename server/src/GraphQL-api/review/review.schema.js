@@ -14,6 +14,8 @@ export const schema = `
       content: String!
       reviewRatingCriterionsValues: [ReviewRatingCriterionValueInput]!
     ): Review
+
+    deleteReview(id: Int): Review
   }
 
   type Review {

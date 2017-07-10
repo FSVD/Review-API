@@ -2,6 +2,7 @@ import {
   stringifyReviewEvaluationType,
   getReviewData,
   addReview,
+  deleteReview,
 } from './review.connectors';
 
 export const resolvers = {
@@ -14,6 +15,7 @@ export const resolvers = {
 
   Mutation: {
     addReview: (obj, args, context, info) => addReview(obj, args, context, info),
+    deleteReview: (obj, args, context, info) => deleteReview(obj, args, context, info),
   },
 
   Review: {},
