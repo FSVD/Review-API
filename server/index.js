@@ -1,20 +1,35 @@
 // Require dotenv module to read .env file from root
 require('dotenv').config({ silent: true });
 
-// Require db configuration to run database when application start
-require('./db/');
+import express from 'express';
+// Import cors module to allow cross-origin resource sharing
+import cors from 'cors';
+// Import utilities from loadash
+import { zip } from 'lodash';
+// Import configuration module to check processes configurations
+import ConfigurationManager from './config/';
 
-// Require loadash which provides utilities to manage multidimensional array
-const _ = require('lodash');
+const app = express();
 
-// Require configuration module to check processes configurations
-const ConfigurationManager = require('./config/');
+// Enable CORS for allowed domains
+const whitelist = ['http://127.0.0.1:4200'];
+const corsOptions = {
+  origin(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Domain not allowed by CORS'));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 
 // Create processes and ports arrays from environment variables
 const processes = process.env.PROCESSES.split(',');
 const ports = process.env.PORTS.split(',');
 
-const processesData = _.zip(processes, ports);
+const processesData = zip(processes, ports);
 
 processesData.map((currentProcessDataSet) => {
   const processType = currentProcessDataSet[0];
@@ -51,5 +66,5 @@ function executeProcess(processType, processPort, configurationResult) {
   process.env.PROCESS_TYPE = processType;
   process.env.PROCESS_PORT = processPort;
 
-  require(`./lib/${processType}`);
+  require(`./src/${processType}`);
 }

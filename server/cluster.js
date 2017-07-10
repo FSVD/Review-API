@@ -6,7 +6,7 @@ const processType = process.env.PROCESS_TYPE;
 const processPort = process.env.PROCESS_PORT;
 
 // Set the fork path based on current precess type
-const forkPath = `./lib/${processType}/index`;
+const forkPath = `./src/${processType}/index`;
 
 if (cluster.isMaster) {
   console.log('\x1b[36m', `✔ Master ${process.pid} is running`, '\x1b[0m');

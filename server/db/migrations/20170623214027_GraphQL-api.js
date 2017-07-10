@@ -15,7 +15,7 @@ exports.up = function (knex, Promise) {
     }),
     knex.schema.createTable('subject', (table) => {
       table.increments('id').unsigned().primary();
-      table.integer('category_id').unsigned().notNull().references('subject_category.id');
+      table.integer('subject_category_id').unsigned().notNull().references('subject_category.id');
       table.string('google_places_reference').notNull();
       table.timestamps([], []);
     }),
