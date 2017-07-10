@@ -1,8 +1,8 @@
-import Bookshelf from '../../../db';
+import bookshelf from '../../../db';
 import { reviewModel } from '../review/review.model';
 
 // Subject model
-class SubjectModel extends Bookshelf.Model {
+class SubjectModel extends bookshelf.Model {
 
   get tableName() {
     return 'subject';
@@ -20,7 +20,7 @@ class SubjectModel extends Bookshelf.Model {
 }
 
 // Subject' category model
-class SubjectCategoryModel extends Bookshelf.Model {
+class SubjectCategoryModel extends bookshelf.Model {
 
   get tableName() {
     return 'subject_category';
@@ -42,7 +42,7 @@ class SubjectCategoryModel extends Bookshelf.Model {
 }
 
 // Rating criterion model
-class RatingCriterionModel extends Bookshelf.Model{
+class RatingCriterionModel extends bookshelf.Model{
 
   get tableName() {
     return 'rating_criterion';
@@ -60,7 +60,7 @@ class RatingCriterionModel extends Bookshelf.Model{
 }
 
 // Subject Category Rating criterion model
-class SubjectCategoryRatingCriterionModel extends Bookshelf.Model {
+class SubjectCategoryRatingCriterionModel extends bookshelf.Model {
 
   get tableName() {
     return 'subject_category_rating_criterion';
@@ -75,10 +75,10 @@ class SubjectCategoryRatingCriterionModel extends Bookshelf.Model {
   }
 }
 
-const subjectModel = Bookshelf.model('SubjectModel', SubjectModel);
-const subjectCategoryModel = Bookshelf.model('SubjectCategoryModel', SubjectCategoryModel);
-const ratingCriterionModel = Bookshelf.model('RatingCriterionModel', RatingCriterionModel);
-const subjectCategoryRatingCriterionModel = Bookshelf.model('SubjectCategoryRatingCriterionModel', SubjectCategoryRatingCriterionModel);
+const subjectModel = bookshelf.model('SubjectModel', SubjectModel);
+const subjectCategoryModel = bookshelf.model('SubjectCategoryModel', SubjectCategoryModel);
+const ratingCriterionModel = bookshelf.model('RatingCriterionModel', RatingCriterionModel);
+const subjectCategoryRatingCriterionModel = bookshelf.model('SubjectCategoryRatingCriterionModel', SubjectCategoryRatingCriterionModel);
 
 export {
   subjectModel,
