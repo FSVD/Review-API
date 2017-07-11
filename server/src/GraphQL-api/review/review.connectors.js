@@ -1,3 +1,4 @@
+import { PubSub } from 'graphql-subscriptions';
 import bookshelf from '../../../db/index'; // Import Knex instance for DB connection
 import {
   mysqlConnector,
@@ -6,9 +7,10 @@ import {
 import {
   reviewModel,
   reviewEvaluationModel,
-  reviewRatingCriterionValueModel,
   reviewRatingCriterionValueCollection,
 } from './review.model';
+
+export const pubsub = new PubSub();
 
 export function getReviewData(obj, args, context, info) {
   return mysqlConnector(obj, args, context, info);
@@ -39,19 +41,19 @@ export function stringifyReviewEvaluationType(obj, args, context, info) {
 }
 
 export function addReview(obj, args, context, info) {
-  // Create a new review object from mutation arguments
-  const newReview = {
-    user_id: args.userId,
-    subject_id: args.subjectId,
-    title: args.title,
-    content: args.content,
-    review_status: 1,
-    created_at: new Date(),
-    updated_at: new Date(),
-  };
   // Perform multiple insert wrapped in a transaction,
   return bookshelf.transaction((addNewReview) => {
-    // First: insert new review object
+    // Create a new review object from mutation arguments
+    const newReview = {
+      user_id: args.userId,
+      subject_id: args.subjectId,
+      title: args.title,
+      content: args.content,
+      review_status: 1,
+      created_at: new Date(),
+      updated_at: new Date(),
+    };
+    // Insert new review object
     return reviewModel.forge()
       .save(newReview, { transacting: addNewReview })
       .then((result) => {
@@ -65,7 +67,7 @@ export function addReview(obj, args, context, info) {
           content: parsedResult.content,
           reviewStatus: parsedResult.review_status,
         };
-        // Second: Create a new review rating criterions values array from mutation argument and add the inserted review id to each array item
+        // Create a new review rating criterions values array from mutation argument and add the inserted review id to each array item
         const newReviewRatingCriterionsValues = [];
         args.reviewRatingCriterionsValues.map((currentReviewRatingCriterionDataSet) => {
           const currentReviewRatingCriterionArrayItem = {};
@@ -76,7 +78,7 @@ export function addReview(obj, args, context, info) {
           currentReviewRatingCriterionArrayItem.updated_at = new Date();
           newReviewRatingCriterionsValues.push(currentReviewRatingCriterionArrayItem);
         });
-        // Third: insert new review rating criterions values array
+        // Insert new review rating criterions values array
         return reviewRatingCriterionValueCollection.forge(newReviewRatingCriterionsValues)
           .invokeThen('save', null, { transacting: addNewReview })
           .then((resultCollection) => {
@@ -103,7 +105,8 @@ export function addReview(obj, args, context, info) {
         // console.log(err);
       } else {
         console.log('Transaction completed!');
-        // console.log(resp);
+        console.log(resp);
+        pubsub.publish('reviewAdded', resp);
       }
     });
 }

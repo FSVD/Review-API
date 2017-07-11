@@ -21,6 +21,7 @@
     "express": "~4.15.2",
     "graphql": "^0.10.1",
     "graphql-server-express": "^0.8.5",
+    "graphql-subscriptions": "^0.4.4",
     "graphql-tools": "^1.0.0",
     "hbs": "^4.0.1",
     "joi": "^10.5.2",
@@ -32,7 +33,8 @@
     "morgan": "~1.8.1",
     "multi-views": "^0.1.1",
     "mysql": "^2.13.0",
-    "serve-favicon": "~2.4.2"
+    "serve-favicon": "~2.4.2",
+    "subscriptions-transport-ws": "^0.8.0"
   },
   "devDependencies": {
     "eslint": "^4.0.0",

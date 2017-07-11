@@ -18,6 +18,10 @@ export const schema = `
     deleteReview(id: Int): Review
   }
 
+  type Subscription {
+    reviewAdded(repoFullName: String!): Review
+  }
+
   type Review {
     id: Int!
     userId: Int
