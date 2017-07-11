@@ -1,4 +1,5 @@
 import { PubSub } from 'graphql-subscriptions';
+import { REVIEW_ADDED_KEY } from './review.subscriptionkeys';
 import bookshelf from '../../../db/index'; // Import Knex instance for DB connection
 import {
   mysqlConnector,
@@ -105,8 +106,20 @@ export function addReview(obj, args, context, info) {
         // console.log(err);
       } else {
         console.log('Transaction completed!');
-        console.log(resp);
-        pubsub.publish('reviewAdded', resp);
+        // console.log(resp);
+        pubsub.publish(REVIEW_ADDED_KEY, resp);
+        /* pubsub.publish(REVIEW_ADDED_KEY, {
+          id: 123,
+          userId: 123,
+          subjectId: 123,
+          title: 'title',
+          content: 'content',
+          reviewStatus: 1,
+          reviewEvaluations: [],
+          author: {},
+          subject: {},
+          reviewRatingCriterionsValues: [],
+        });*/
       }
     });
 }

@@ -36,6 +36,7 @@ app.use('/graphql', bodyParser.json(), graphqlExpress({
 
 app.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
+  subscriptionsEndpoint: `ws://localhost:${process.env.PROCESS_PORT}/subscriptions`,
 }));
 
 // Catch 404 and forward to error handler

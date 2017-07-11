@@ -5,6 +5,8 @@ import {
   addReview,
   deleteReview,
 } from './review.connectors';
+import { REVIEW_ADDED_KEY } from './review.subscriptionkeys';
+
 
 export const resolvers = {
   Query: {
@@ -20,7 +22,7 @@ export const resolvers = {
   },
 
   Subscription: {
-    reviewAdded: { subscribe: () => pubsub.asyncIterator('commentAdded') },
+    reviewAdded: { subscribe: () => pubsub.asyncIterator(REVIEW_ADDED_KEY) },
   },
 
   Review: {},

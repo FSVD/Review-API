@@ -19,7 +19,7 @@ export const schema = `
   }
 
   type Subscription {
-    reviewAdded(repoFullName: String!): Review
+    reviewAdded: Review
   }
 
   type Review {

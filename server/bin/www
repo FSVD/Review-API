@@ -1,5 +1,10 @@
 #!/usr/bin/env node
 
+import { execute, subscribe } from 'graphql';
+import { createServer } from 'http';
+import { SubscriptionServer } from 'subscriptions-transport-ws';
+import executableSchema from '../src/GraphQL-api/schema';
+
 const processType = process.env.PROCESS_TYPE;
 const processPort = process.env.PROCESS_PORT;
 
@@ -29,10 +34,25 @@ const server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
+if (processType === 'GraphQL-api') {
+  const ws = createServer(app);
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+  ws.listen(processPort, () => {
+    // Set up the WebSocket for handling GraphQL subscriptions
+    new SubscriptionServer({
+      execute,
+      subscribe,
+      schema: executableSchema,
+    }, {
+      server: ws,
+      path: '/subscriptions',
+    });
+  });
+} else {
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
+}
 
 /**
  * Normalize a port into a number, string, or false.
