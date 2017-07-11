@@ -8,6 +8,9 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
       subjectById: {
         where: (table, args) => `${table}.id = ${args.id}`,
       },
+      subjectByGooglePlacesReference: {
+        where: (table, args) => `${table}.google_places_reference = '${args.googlePlacesReference}'`,
+      },
       subjectCategoryById: {
         where: (table, args) => `${table}.id = ${args.id}`,
       },

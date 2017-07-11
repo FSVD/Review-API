@@ -1,6 +1,7 @@
 export const schema = `
   type Query {
     subjectById(id: Int): Subject
+    subjectByGooglePlacesReference(googlePlacesReference: String): Subject
     subjects: [Subject]
     subjectCategoryById(id:Int): SubjectCategory
     subjectCategories: [SubjectCategory]

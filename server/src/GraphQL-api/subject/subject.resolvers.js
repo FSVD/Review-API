@@ -9,6 +9,7 @@ import {
 export const resolvers = {
   Query: {
     subjectById: (obj, args, context, info) => getSubjectData(obj, args, context, info),
+    subjectByGooglePlacesReference: (obj, args, context, info) => getSubjectData(obj, args, context, info),
     subjects: (obj, args, context, info) => getSubjectData(obj, args, context, info),
     subjectCategoryById: (obj, args, context, info) => getSubjectData(obj, args, context, info),
     subjectCategories: (obj, args, context, info) => getSubjectData(obj, args, context, info),
