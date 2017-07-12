@@ -4,6 +4,7 @@ import favicon from 'serve-favicon';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import multiViews from 'multi-views';
 import {
   graphqlExpress,
@@ -13,6 +14,28 @@ import executableSchema from './schema';
 import schemaMap from './schema.map';
 
 const app = express();
+
+// Enable CORS for allowed domains
+const whitelist = [
+  'http://localhost:3000',
+];
+
+const corsOptions = {
+  origin(origin, callback) {
+    try {
+      if (whitelist.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        throw new Error('Domain not allowed by CORS');
+      }
+    } catch (error) {
+      console.log(error.message);
+      callback(error.message);
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 
 // App init set up
 app.use(favicon(path.join(__dirname, '_public', 'favicon.ico')));
@@ -26,7 +49,7 @@ app.use(express.static(path.join(__dirname, '_public')));
 const viewDirs = [];
 app.set('views', viewDirs);
 app.set('view engine', 'hbs');
-viewDirs.push(path.resolve(__dirname, 'src/_common/views'));
+viewDirs.push(path.resolve(__dirname, '_common/views'));
 multiViews.setupMultiViews(app);
 
 // GraphQL endpoint and graphiql interface set up
