@@ -15,28 +15,6 @@ import schemaMap from './schema.map';
 
 const app = express();
 
-// Enable CORS for allowed domains
-const whitelist = [
-  'http://localhost:3000',
-];
-
-const corsOptions = {
-  origin(origin, callback) {
-    try {
-      if (whitelist.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        throw new Error('Domain not allowed by CORS');
-      }
-    } catch (error) {
-      console.log(error.message);
-      callback(error.message);
-    }
-  },
-};
-
-app.use(cors(corsOptions));
-
 // App init set up
 app.use(favicon(path.join(__dirname, '_public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -52,8 +30,25 @@ app.set('view engine', 'hbs');
 viewDirs.push(path.resolve(__dirname, '_common/views'));
 multiViews.setupMultiViews(app);
 
+// Enable CORS for allowed domains
+const whitelist = [
+  'http://localhost:3000',
+  'http://localhost:4001',
+];
+
+const corsOptionsDelegate = function (req, callback) {
+  let corsOptions;
+  if (whitelist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false }; // disable CORS for this request
+    console.log('Domain not allowed by CORS');
+  }
+  callback(null, corsOptions); // callback expects two parameters: error and options
+};
+
 // GraphQL endpoint and graphiql interface set up
-app.use('/graphql', bodyParser.json(), graphqlExpress({
+app.use('/graphql', cors(corsOptionsDelegate), bodyParser.json(), graphqlExpress({
   schema: executableSchema,
 }));
 
