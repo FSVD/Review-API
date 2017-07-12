@@ -1,5 +1,6 @@
 import {
   getSubjectData,
+  addSubject,
   deleteSubjectCategory,
   deleteRatingCriterion,
   getRatingCriterionsValuesAverage,
@@ -18,6 +19,7 @@ export const resolvers = {
   },
 
   Mutation: {
+    addSubject: (obj, args, context, info) => addSubject(obj, args, context, info),
     deleteSubjectCategory: (obj, args, context, info) => deleteSubjectCategory(obj, args, context, info),
     deleteRatingCriterion: (obj, args, context, info) => deleteRatingCriterion(obj, args, context, info),
   },

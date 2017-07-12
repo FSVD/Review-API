@@ -10,6 +10,10 @@ export const schema = `
   }
 
   type Mutation {
+    addSubject(
+      subjectCategoryId: Int
+      googlePlacesReference: String
+    ): Subject
     deleteSubjectCategory(id: Int): SubjectCategory
     deleteRatingCriterion(id: Int): RatingCriterion
   }

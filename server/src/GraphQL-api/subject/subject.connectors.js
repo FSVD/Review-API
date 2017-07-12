@@ -4,12 +4,35 @@ import {
   deleteItem,
 } from '../_common/connectors/common.connectors';
 import {
+  subjectModel,
   subjectCategoryModel,
   ratingCriterionModel,
 } from './subject.model';
 
 export function getSubjectData(obj, args, context, info) {
   return mysqlConnector(obj, args, context, info);
+}
+
+export function addSubject(obj, args, context, info) {
+  const newSubject = {
+    subject_category_id: args.subjectCategoryId,
+    google_places_reference: args.googlePlacesReference,
+    created_at: new Date(),
+    updated_at: new Date(),
+  };
+  return subjectModel.forge(newSubject)
+    .save()
+    .then((result) => {
+      const parsedResult = JSON.parse(JSON.stringify(result));
+      const insertedSubject = {
+        id: parsedResult.id,
+        subjectCategoryId: parsedResult.subject_category_id,
+        googlePlacesReference: parsedResult.google_places_reference,
+      };
+      return insertedSubject;
+    })
+    .catch((err) => { return err; },
+    );
 }
 
 export function deleteSubjectCategory(obj, args, context, info) {
