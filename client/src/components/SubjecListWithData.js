@@ -3,6 +3,7 @@ import {
   gql,
   graphql,
 } from 'react-apollo';
+
 import AddSubject from './AddSubject';
 
 const SubjectsList = ({ data: {loading, error, subjects}}) => {
@@ -20,7 +21,7 @@ const SubjectsList = ({ data: {loading, error, subjects}}) => {
       <div className="blockTitle">Subjects List (Google Places Reference)</div>
       <br></br>
       { subjects.map( sbj => 
-        (<div key={sbj.id} className="subject">{sbj.googlePlacesReference}</div>)
+        (<div key={sbj.id} className={'subject ' + (sbj.id < 0 ? 'optimistic' : '')}>{sbj.googlePlacesReference}</div>)
       )}
     </div>
   );
