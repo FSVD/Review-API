@@ -34,6 +34,8 @@ export const schema = `
     author: User
     subject: Subject
     reviewRatingCriterionsValues: [ReviewRatingCriterionValue]
+    createdAt: String
+    updatedAt: String
   }
 
   type ReviewEvaluation {
