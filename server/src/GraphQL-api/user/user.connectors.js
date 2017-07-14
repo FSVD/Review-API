@@ -1,4 +1,7 @@
+import rename from 'rename-keys';
 import {
+  deserializeObject,
+  serializeObject,
   mysqlConnector,
   deleteItem,
 } from '../_common/connectors/common.connectors';
@@ -33,71 +36,36 @@ export function firstNameToUpperCase(obj, args, context, info) {
 }
 
 export function addUser(obj, args, context, info) {
-  const newUser = {
-    username: args.username,
-    first_name: args.firstName,
-    last_name: args.lastName,
-    password: args.password,
-    email: args.email,
-    city: args.city,
-    newsletter_agree: args.newsletterAgree,
-    user_account_status: args.userAccountStatus,
-    created_at: new Date(),
-    updated_at: new Date(),
-  };
-  return userModel.forge(newUser)
+  const deserializedArgs = rename(args, deserializeObject);
+  deserializedArgs.created_at = new Date();
+  deserializedArgs.updated_at = new Date();
+  console.log(deserializedArgs);
+  return userModel.forge(deserializedArgs)
     .save()
     .then((result) => {
       const parsedResult = JSON.parse(JSON.stringify(result));
-      const insertedUser = {
-        id: parsedResult.id,
-        username: parsedResult.username,
-        firstName: parsedResult.first_name,
-        lastName: parsedResult.last_name,
-        password: parsedResult.password,
-        email: parsedResult.email,
-        city: parsedResult.city,
-        newsletterAgree: parsedResult.newsletter_agree,
-        userAccountStatus: parsedResult.user_account_status,
-        reviews: [],
-      };
-      return insertedUser;
+      const serializedResult = rename(parsedResult, serializeObject);
+      console.log(serializedResult);
+      return serializedResult;
     })
     .catch((err) => { return err; },
     );
 }
 
 export function updateUser(obj, args, context, info) {
+  const deserializedArgs = rename(args, deserializeObject);
+  deserializedArgs.updated_at = new Date();
   return userModel.where('id', args.id)
-    .save({
-      username: args.username,
-      first_name: args.firstName,
-      last_name: args.lastName,
-      password: args.password,
-      email: args.email,
-      city: args.city,
-      newsletter_agree: args.newsletterAgree,
-      user_account_status: args.userAccountStatus,
-      updated_at: new Date(),
-    },
-    {
-      method: 'update',
-      patch: true,
-    })
+    .save(deserializedArgs,
+      {
+        method: 'update',
+        patch: true,
+      })
     .then((result) => {
       const parsedResult = JSON.parse(JSON.stringify(result));
-      const updateddUser = {
-        id: args.id,
-        username: parsedResult.username,
-        firstName: parsedResult.first_name,
-        lastName: parsedResult.last_name,
-        password: parsedResult.password,
-        email: parsedResult.email,
-        city: parsedResult.city,
-        newsletterAgree: parsedResult.newsletter_agree,
-        userAccountStatus: parsedResult.user_account_status,
-      };
-      return updateddUser;
+      const serializedResult = rename(parsedResult, serializeObject);
+      console.log(serializedResult);
+      return serializedResult;
     })
     .catch((err) => { return err; },
     );

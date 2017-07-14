@@ -8,42 +8,42 @@ export const schema = `
 
   type Mutation {
     addUser(
-      username: String!
-      firstName: String!
-      lastName: String!
-      password: String!
+      username: String
+      firstName: String
+      lastName: String
+      password: String
       email: String!
       city: String
-      newsletterAgree: Boolean!
-      userAccountStatus: Int!
+      newsletterAgree: Boolean
+      userAccountStatus: Int
     ): User
     
     updateUser(
-      id: Int
-      username: String!
-      firstName: String!
-      lastName: String!
-      password: String!
-      email: String!
+      id: Int!
+      username: String
+      firstName: String
+      lastName: String
+      password: String
+      email: String
       city: String
-      newsletterAgree: Boolean!
-      userAccountStatus: Int!
+      newsletterAgree: Boolean
+      userAccountStatus: Int
     ): User
 
-    deleteUser(id: Int): User
+    deleteUser(id: Int!): User
   }
   
   type User {
     id: Int!
-    username: String!
-    firstName: String!
-    lastName: String!
-    fullName: String!
-    password: String!
-    email: String!
+    username: String
+    firstName: String
+    lastName: String
+    fullName: String
+    password: String
+    email: String
     city: String
-    newsletterAgree: Boolean!
-    userAccountStatus: Int!
+    newsletterAgree: Boolean
+    userAccountStatus: Int
     reviews: [Review]
   }
 `;

@@ -1,5 +1,14 @@
 import joinMonster from 'join-monster';
+import { camelCase, snakeCase } from 'lodash';
 import { knex } from '../../../../db/index'; // Import Knex instance for DB connection
+
+export function deserializeObject(str) {
+  return snakeCase(str);
+}
+
+export function serializeObject(str) {
+  return camelCase(str);
+}
 
 export function mysqlConnector(obj, args, context, info) {
   return joinMonster(info, {}, sql => (

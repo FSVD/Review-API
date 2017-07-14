@@ -1,7 +1,10 @@
+import rename from 'rename-keys';
 import { PubSub } from 'graphql-subscriptions';
 import { REVIEW_ADDED_KEY } from './review.subscriptionkeys';
 import bookshelf from '../../../db/index'; // Import Knex instance for DB connection
 import {
+  deserializeObject,
+  serializeObject,
   mysqlConnector,
   deleteItem,
 } from '../_common/connectors/common.connectors';
@@ -44,57 +47,40 @@ export function stringifyReviewEvaluationType(obj, args, context, info) {
 export function addReview(obj, args, context, info) {
   // Perform multiple insert wrapped in a transaction,
   return bookshelf.transaction((addNewReview) => {
-    // Create a new review object from mutation arguments
-    const newReview = {
-      user_id: args.userId,
-      subject_id: args.subjectId,
-      title: args.title,
-      content: args.content,
-      review_status: 1,
-      created_at: new Date(),
-      updated_at: new Date(),
-    };
-    // Insert new review object
+    // Rename arguments' property names, add more properties and delete extra properties to perform review insert
+    const deserializedReviewArgs = rename(args, deserializeObject);
+    deserializedReviewArgs.created_at = new Date();
+    deserializedReviewArgs.updated_at = new Date();
+    delete deserializedReviewArgs.review_rating_criterions_values; // Delete review rating criterions values array
+    // Insert new review
     return reviewModel.forge()
-      .save(newReview, { transacting: addNewReview })
+      .save(deserializedReviewArgs, { transacting: addNewReview })
       .then((result) => {
-        const parsedResult = JSON.parse(JSON.stringify(result));
-        // Build an object from inserted review to return to GrapQL
-        const insertedReview = {
-          id: result.id,
-          userId: parsedResult.user_id,
-          subjectId: parsedResult.subject_id,
-          title: parsedResult.title,
-          content: parsedResult.content,
-          reviewStatus: parsedResult.review_status,
-        };
-        // Create a new review rating criterions values array from mutation argument and add the inserted review id to each array item
-        const newReviewRatingCriterionsValues = [];
+        // Serialize review result to send to GraphQL
+        const parsedReviewResult = JSON.parse(JSON.stringify(result));
+        const serializedReviewResult = rename(parsedReviewResult, serializeObject);
+        // Rename arguments properties names, add more properties for each review rating criterions values array item
+        const deserializedReviewArgReviewRatingCriterionsValues = [];
         args.reviewRatingCriterionsValues.map((currentReviewRatingCriterionDataSet) => {
-          const currentReviewRatingCriterionArrayItem = {};
-          currentReviewRatingCriterionArrayItem.review_id = result.id;
-          currentReviewRatingCriterionArrayItem.rating_criterion_id = currentReviewRatingCriterionDataSet.ratingCriterionId;
-          currentReviewRatingCriterionArrayItem.value = currentReviewRatingCriterionDataSet.value;
-          currentReviewRatingCriterionArrayItem.created_at = new Date();
-          currentReviewRatingCriterionArrayItem.updated_at = new Date();
-          newReviewRatingCriterionsValues.push(currentReviewRatingCriterionArrayItem);
+          const deserializedCurrentReviewRatingCriterionDataSet = rename(currentReviewRatingCriterionDataSet, deserializeObject);
+          deserializedCurrentReviewRatingCriterionDataSet.review_id = result.id;
+          deserializedCurrentReviewRatingCriterionDataSet.created_at = new Date();
+          deserializedCurrentReviewRatingCriterionDataSet.updated_at = new Date();
+          deserializedReviewArgReviewRatingCriterionsValues.push(deserializedCurrentReviewRatingCriterionDataSet);
         });
         // Insert new review rating criterions values array
-        return reviewRatingCriterionValueCollection.forge(newReviewRatingCriterionsValues)
+        return reviewRatingCriterionValueCollection.forge(deserializedReviewArgReviewRatingCriterionsValues)
           .invokeThen('save', null, { transacting: addNewReview })
           .then((resultCollection) => {
-            const parsedResultCollection = JSON.parse(JSON.stringify(resultCollection));
-            // Build an array from inserted review rating criterions values array
-            const insertedReviewRatingCriterionsValues = [];
-            parsedResultCollection.map((currentInsertedReviewRatingCriterionDataSet) => {
-              const currentInsertedReviewRatingCriterionValueArrayItem = {};
-              currentInsertedReviewRatingCriterionValueArrayItem.ratingCriterionId = currentInsertedReviewRatingCriterionDataSet.rating_criterion_id;
-              currentInsertedReviewRatingCriterionValueArrayItem.value = currentInsertedReviewRatingCriterionDataSet.value;
-              insertedReviewRatingCriterionsValues.push(currentInsertedReviewRatingCriterionValueArrayItem);
+            // Serialize result collection, add it to serialized review result and send the final response to GraphQL
+            const parsedReviewRatingCriterionsValuesResultCollection = JSON.parse(JSON.stringify(resultCollection));
+            const serializedReviewArgReviewRatingCriterionsValues = [];
+            parsedReviewRatingCriterionsValuesResultCollection.map((currentReviewRatingCriterionDataSet) => {
+              const serializedCurrentReviewRatingCriterionDataSet = rename(currentReviewRatingCriterionDataSet, serializeObject);
+              serializedReviewArgReviewRatingCriterionsValues.push(serializedCurrentReviewRatingCriterionDataSet);
             });
-            // Add the array as property of inserted review object and return the inserted review object to GrapQL
-            insertedReview.reviewRatingCriterionsValues = insertedReviewRatingCriterionsValues;
-            return insertedReview;
+            serializedReviewResult.reviewRatingCriterionsValues = serializedReviewArgReviewRatingCriterionsValues;
+            return serializedReviewResult;
           });
       })
       .then(addNewReview.commit)
@@ -123,6 +109,7 @@ export function addReview(obj, args, context, info) {
       }
     });
 }
+
 
 export function deleteReview(obj, args, context, info) {
   const item = reviewModel;

@@ -8,11 +8,12 @@ export const schema = `
 
   type Mutation {
     addReview(
-      userId: Int!
-      subjectId: Int!
-      title: String!
-      content: String!
-      reviewRatingCriterionsValues: [ReviewRatingCriterionValueInput]!
+      userId: Int
+      subjectId: Int
+      title: String
+      content: String
+      reviewStatus: Int
+      reviewRatingCriterionsValues: [ReviewRatingCriterionValueInput]
     ): Review
 
     deleteReview(id: Int): Review
