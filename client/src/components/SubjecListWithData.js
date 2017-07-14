@@ -1,5 +1,8 @@
 import React from 'react';
 import {
+  Link
+} from 'react-router-dom'
+import {
   gql,
   graphql,
 } from 'react-apollo';
@@ -16,12 +19,16 @@ const SubjectsList = ({ data: {loading, error, subjects}}) => {
   
   return (
     <div className="subjectsList">
-    <AddSubject />
+      <AddSubject />
       <br></br>
       <div className="blockTitle">Subjects List (Google Places Reference)</div>
       <br></br>
-      { subjects.map( sbj => 
-        (<div key={sbj.id} className={'subject ' + (sbj.id < 0 ? 'optimistic' : '')}>{sbj.googlePlacesReference}</div>)
+      {subjects.map(sbj =>
+        (<div key={sbj.id} className={'subject ' + (sbj.id < 0 ? 'optimistic' : '')}>
+          <Link to={sbj.id < 0 ? `/` : `subject/${sbj.id}`}>
+            {sbj.googlePlacesReference}
+          </Link>
+        </div>)
       )}
     </div>
   );

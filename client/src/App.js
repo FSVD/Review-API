@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Switch,
+} from 'react-router-dom';
 import './App.css';
 import SubjectsListWithData from './components/SubjecListWithData';
+import NotFound from './components/NotFound';
+import SubjectDetails from './components/SubjectDetails';
 
 import {
   ApolloClient,
@@ -24,11 +32,17 @@ class App extends Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <div className="App">
-          <div className="navbar">Test project</div>
-          <br></br>
-          <SubjectsListWithData />
-        </div>
+        <BrowserRouter>
+          <div className="App">
+            <Link to="/" className="navbar">Test project</Link>
+            <br></br>
+            <Switch>
+              <Route exact path="/" component={SubjectsListWithData}/>
+              <Route path="/subject/:subjectId" component={SubjectDetails}/>
+              <Route component={NotFound}/>
+            </Switch>
+          </div>
+        </BrowserRouter>
       </ApolloProvider>
     );
   }
