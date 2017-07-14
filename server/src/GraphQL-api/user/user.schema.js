@@ -33,7 +33,9 @@ export const schema = `
     deleteUser(id: Int!): User
   }
   
+  # This is a User type
   type User {
+    # This is the User id field
     id: Int!
     username: String
     firstName: String
