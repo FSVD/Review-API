@@ -11,10 +11,10 @@ import AddSubject from './AddSubject';
 
 const SubjectsList = ({ data: {loading, error, subjects}}) => {
   if (loading) {
-    return <p>Loading...</p>
+    return <p className="loading">Loading...</p>;
   }
   if (error) {
-    return <p>{ error.message }</p>
+    return <p className="error">{ error.message }</p>;
   }
   
   return (
