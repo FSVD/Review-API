@@ -1,6 +1,6 @@
 export const schema = `
   type Query {
-    reviewById(id: Int): Review
+    review(id: Int): Review
     reviews: [Review]
     reviewEvaluations: [ReviewEvaluation]
     reviewEvaluationsByReviewId(reviewId: Int): [ReviewEvaluation]

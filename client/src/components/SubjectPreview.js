@@ -5,7 +5,7 @@ import {
 } from 'react-apollo';
 
 
-const SubjectPreview = ({ data: {loading, error, subjectById } }) => {
+const SubjectPreview = ({ data: {loading, error, subject } }) => {
   if (loading) {
     return <p className="loading">Loading...</p>;
   }
@@ -16,7 +16,7 @@ const SubjectPreview = ({ data: {loading, error, subjectById } }) => {
   return (
     <div>
       <div className="subjectGooglePlacesReference">
-        {subjectById.googlePlacesReference}
+        {subject.googlePlacesReference}
       </div>
       <p className="loading">Loading Reviews</p>
     </div>);
@@ -24,7 +24,7 @@ const SubjectPreview = ({ data: {loading, error, subjectById } }) => {
 
 export const subjectQuery = gql`
   query SubjectQuery($subjectId : Int) {
-    subjectById(id: $subjectId) {
+    subject(id: $subjectId) {
       id
       googlePlacesReference
     }

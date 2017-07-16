@@ -1,13 +1,15 @@
 import React from 'react';
 
-//import AddReview from './AddReview';
+import AddReview from './AddReview';
 
 const ReviewList = ({ reviews }) => {
   return (
     <div className="reviewList">
+      <AddReview />
+      <br></br>
       { reviews.map( review =>
         (<div key={review.id} className={'review ' + (review.id < 0 ? 'optimistic' : '')}>
-            {review.title}
+            <strong>{review.title}</strong>
             <br></br>
             {review.content}
             <br></br>
@@ -16,12 +18,11 @@ const ReviewList = ({ reviews }) => {
               <div key={reviewRatingCriterionValue.id}>{ reviewRatingCriterionValue.ratingCriterion.name}: {reviewRatingCriterionValue.value} </div>
             ))}
             <br></br>
-            {review.author.fullName}
+            <i>{review.author.fullName}</i>
             <br></br>
             <br></br>
         </div>)
       )}
-      {/* <AddReview /> */}
     </div>
   );
 };

@@ -9,7 +9,7 @@ import {
 
 export const resolvers = {
   Query: {
-    userById: (obj, args, context, info) => getUserData(obj, args, context, info),
+    user: (obj, args, context, info) => getUserData(obj, args, context, info),
     users: (obj, args, context, info) => getUserData(obj, args, context, info),
     usersByFirstname: (obj, args, context, info) => getUserData(obj, args, context, info),
     usersByNewsletterAgree: (obj, args, context, info) => getUserData(obj, args, context, info),

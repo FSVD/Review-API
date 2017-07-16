@@ -1,6 +1,6 @@
 export const schema = `
   type Query {
-    userById(id: Int): User
+    user(id: Int): User
     users: [User]
     usersByFirstname(firstName: String): [User]
     usersByNewsletterAgree(newsletterAgree: Boolean): [User]

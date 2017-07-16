@@ -102,7 +102,7 @@ div.subject {
   font-size: 16px;
 }
 
-div.subjectsList input {
+div.subjectsList input, div.reviewList input {
   width: 200px;
   background-color: transparent;
   padding: 10px 20px 10px 30px;

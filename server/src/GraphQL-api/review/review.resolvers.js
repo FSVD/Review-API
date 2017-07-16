@@ -10,7 +10,7 @@ import { REVIEW_ADDED_KEY } from './review.subscriptionkeys';
 
 export const resolvers = {
   Query: {
-    reviewById: (obj, args, context, info) => getReviewData(obj, args, context, info),
+    review: (obj, args, context, info) => getReviewData(obj, args, context, info),
     reviews: (obj, args, context, info) => getReviewData(obj, args, context, info),
     reviewEvaluations: (obj, args, context, info) => getReviewData(obj, args, context, info),
     reviewEvaluationsByReviewId: (obj, args, context, info) => getReviewData(obj, args, context, info),

@@ -5,7 +5,7 @@ const schemaMap = joinMonsterAdapt(executableSchema, {
   Query: {
     fields: {
       // add a function to generate the "where condition"
-      subjectById: {
+      subject: {
         where: (table, args) => `${table}.id = ${args.id}`,
       },
       subjectByGooglePlacesReference: {
