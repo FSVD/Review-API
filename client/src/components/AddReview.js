@@ -10,8 +10,6 @@ import { subjectDetailsQuery } from './SubjectDetails';
 const AddReview = ({ mutate, match }) => {
   const handleSubmit = (evt) => {
     evt.persist();
-    //console.log(this.subjectCategoryId.value);
-    //console.log(this.googlePlacesReference.value);
     mutate({
       variables: {
         userId: 1,
@@ -22,19 +20,17 @@ const AddReview = ({ mutate, match }) => {
         reviewRatingCriterionsValues: [
           {
             ratingCriterionId: 1,
-            value: 4
+            value: 4,
           },
           {
             ratingCriterionId: 2,
-            value: 4
+            value: 4,
           }
-        ],
-        author: {
-          fullName: 'Fabio Schettino',
-        }
+        ]
       },
       optimisticResponse: {
         addReview: {
+          id: Math.round(Math.random() * -1000000),
           userId: 1,
           subjectId: match.params.subjectId,
           title: this.title.value,
@@ -45,37 +41,40 @@ const AddReview = ({ mutate, match }) => {
               id: Math.round(Math.random() * -1000000),
               ratingCriterionId: 1,
               value: 4,
-              __typename: 'ReviewRatingCriterionValue',
               ratingCriterion: {
                 name: 'Nombre',
                 __typename: 'RatingCriterion',
-              }
+              },
+              __typename: 'ReviewRatingCriterionValue',
             },
             {
               id: Math.round(Math.random() * -1000000),
               ratingCriterionId: 2,
               value: 4,
-              __typename: 'ReviewRatingCriterionValue',
               ratingCriterion: {
                 name: 'Nombre',
                 __typename: 'RatingCriterion',
-              }
+              },
+              __typename: 'ReviewRatingCriterionValue',
             },
           ],
           author: {
             fullName: 'Fabio Schettino',
             __typename: 'User',
           },
-          id: Math.round(Math.random() * -1000000),
           __typename: 'Review',
         }
       },
        update: (cache, { data: { addReview }}) => {
+        console.log('Cache:');
+        console.log(cache);
+        console.log('New review:');
         console.log(addReview);
         const data = cache.readQuery({ query: subjectDetailsQuery, variables: { subjectId: match.params.subjectId } });
-        console.log(data.subject.reviews);
+        console.log('Query cached:');
+        console.log(data);
         data.subject.reviews.push(addReview);
-        console.log(data.subject.reviews);
+        //console.log(data.subject.reviews);
         cache.writeQuery({ query: subjectDetailsQuery, variables: { subjectId: match.params.subjectId },data });
       }, 
     })

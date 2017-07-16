@@ -41,6 +41,7 @@ export const subjectDetailsQuery = gql`
           content
           reviewRatingCriterionsValues {
             id
+            ratingCriterionId
             value
             ratingCriterion {
               name
