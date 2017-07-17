@@ -13,6 +13,12 @@ import {
   reviewEvaluationModel,
   reviewRatingCriterionValueCollection,
 } from './review.model';
+import {
+  ratingCriterionModel,
+} from '../subject/subject.model';
+import {
+  userModel,
+} from '../user/user.model';
 
 export const pubsub = new PubSub();
 
@@ -81,7 +87,9 @@ export function addReview(obj, args, context, info) {
             });
             serializedReviewResult.reviewRatingCriterionsValues = serializedReviewArgReviewRatingCriterionsValues;
             return serializedReviewResult;
-          });
+          })
+          .catch((err) => { return err; },
+          );
       })
       .then(addNewReview.commit)
       .catch(addNewReview.rollback);
@@ -92,20 +100,19 @@ export function addReview(obj, args, context, info) {
         // console.log(err);
       } else {
         console.log('Transaction completed!');
-        // console.log(resp);
-        pubsub.publish(REVIEW_ADDED_KEY, resp);
-        /* pubsub.publish(REVIEW_ADDED_KEY, {
-          id: 123,
-          userId: 123,
-          subjectId: 123,
-          title: 'title',
-          content: 'content',
-          reviewStatus: 1,
-          reviewEvaluations: [],
-          author: {},
-          subject: {},
-          reviewRatingCriterionsValues: [],
-        });*/
+        const insertedReview = resp;
+        insertedReview.reviewRatingCriterionsValues.map((currentReviewRatingCriterionDataSet) => {
+          const insertedReviewRatingCriterion = currentReviewRatingCriterionDataSet;
+          insertedReviewRatingCriterion.ratingCriterion = ratingCriterionModel.where({ id: currentReviewRatingCriterionDataSet.ratingCriterionId })
+            .fetch({ columns: ['name'] })
+            .then((resultRatingCriterionName) => {
+              const parsedRatingCriterionName = JSON.parse(JSON.stringify(resultRatingCriterionName));
+              return parsedRatingCriterionName;
+            })
+            .catch((error) => { return error; },
+            );
+        });
+        pubsub.publish(REVIEW_ADDED_KEY, insertedReview);
       }
     });
 }
