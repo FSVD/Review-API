@@ -20,14 +20,18 @@ const AddReview = ({ mutate, match }) => {
         reviewRatingCriterionsValues: [
           {
             ratingCriterionId: 1,
-            value: 4,
+            value: 2,
           },
           {
             ratingCriterionId: 2,
-            value: 4,
+            value: 2,
           }
         ]
       },
+      refetchQueries: [{
+        query: subjectDetailsQuery,
+        variables: { subjectId: match.params.subjectId }
+      }], 
       optimisticResponse: {
         addReview: {
           id: Math.round(Math.random() * -1000000),
@@ -40,7 +44,7 @@ const AddReview = ({ mutate, match }) => {
             {
               id: Math.round(Math.random() * -1000000),
               ratingCriterionId: 1,
-              value: 4,
+              value: 2,
               ratingCriterion: {
                 name: 'Nombre',
                 __typename: 'RatingCriterion',
@@ -50,7 +54,7 @@ const AddReview = ({ mutate, match }) => {
             {
               id: Math.round(Math.random() * -1000000),
               ratingCriterionId: 2,
-              value: 4,
+              value: 2,
               ratingCriterion: {
                 name: 'Nombre',
                 __typename: 'RatingCriterion',
@@ -59,15 +63,15 @@ const AddReview = ({ mutate, match }) => {
             },
           ],
           author: {
-            fullName: 'Fabio Schettino',
+            fullName: 'Fabios Schettino',
             __typename: 'User',
           },
           __typename: 'Review',
         }
       },
-       update: (cache, { data: { addReview }}) => {
-        console.log('Cache:');
-        console.log(cache);
+      /* update: (cache, { data: { addReview }}) => {
+        //console.log('Cache:');
+        //console.log(cache);
         console.log('New review:');
         console.log(addReview);
         const data = cache.readQuery({ query: subjectDetailsQuery, variables: { subjectId: match.params.subjectId } });
@@ -76,7 +80,7 @@ const AddReview = ({ mutate, match }) => {
         data.subject.reviews.push(addReview);
         //console.log(data.subject.reviews);
         cache.writeQuery({ query: subjectDetailsQuery, variables: { subjectId: match.params.subjectId },data });
-      }, 
+      }, */   
     })
     .then(res => {
       this.title.value = '';
