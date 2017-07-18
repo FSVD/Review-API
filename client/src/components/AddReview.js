@@ -28,10 +28,6 @@ const AddReview = ({ mutate, match }) => {
           }
         ]
       },
-      refetchQueries: [{
-        query: subjectDetailsQuery,
-        variables: { subjectId: match.params.subjectId }
-      }], 
       optimisticResponse: {
         addReview: {
           id: Math.round(Math.random() * -1000000),
@@ -69,18 +65,11 @@ const AddReview = ({ mutate, match }) => {
           __typename: 'Review',
         }
       },
-      /* update: (cache, { data: { addReview }}) => {
-        //console.log('Cache:');
-        //console.log(cache);
-        console.log('New review:');
-        console.log(addReview);
+      update: (cache, { data: { addReview }}) => {
         const data = cache.readQuery({ query: subjectDetailsQuery, variables: { subjectId: match.params.subjectId } });
-        console.log('Query cached:');
-        console.log(data);
         data.subject.reviews.push(addReview);
-        //console.log(data.subject.reviews);
         cache.writeQuery({ query: subjectDetailsQuery, variables: { subjectId: match.params.subjectId },data });
-      }, */   
+      }, 
     })
     .then(res => {
       this.title.value = '';

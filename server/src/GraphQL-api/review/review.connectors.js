@@ -9,6 +9,9 @@ import {
   deleteItem,
 } from '../_common/connectors/common.connectors';
 import {
+  generateFullName,
+} from '../user/user.connectors';
+import {
   reviewModel,
   reviewEvaluationModel,
   reviewRatingCriterionValueCollection,
@@ -53,7 +56,7 @@ export function stringifyReviewEvaluationType(obj, args, context, info) {
 export function addReview(obj, args, context, info) {
   // Perform multiple insert wrapped in a transaction,
   return bookshelf.transaction((addNewReview) => {
-    // Rename arguments' property names, add more properties and delete extra properties to perform review insert
+    // Rename arguments' property names, complete the object with others properties and delete extra properties to perform review insert
     const deserializedReviewArgs = rename(args, deserializeObject);
     deserializedReviewArgs.created_at = new Date();
     deserializedReviewArgs.updated_at = new Date();
@@ -61,15 +64,15 @@ export function addReview(obj, args, context, info) {
     // Insert new review
     return reviewModel.forge()
       .save(deserializedReviewArgs, { transacting: addNewReview })
-      .then((result) => {
+      .then((reviewResult) => {
         // Serialize review result to send to GraphQL
-        const parsedReviewResult = JSON.parse(JSON.stringify(result));
+        const parsedReviewResult = JSON.parse(JSON.stringify(reviewResult));
         const serializedReviewResult = rename(parsedReviewResult, serializeObject);
         // Rename arguments properties names, add more properties for each review rating criterions values array item
         const deserializedReviewArgReviewRatingCriterionsValues = [];
         args.reviewRatingCriterionsValues.map((currentReviewRatingCriterionDataSet) => {
           const deserializedCurrentReviewRatingCriterionDataSet = rename(currentReviewRatingCriterionDataSet, deserializeObject);
-          deserializedCurrentReviewRatingCriterionDataSet.review_id = result.id;
+          deserializedCurrentReviewRatingCriterionDataSet.review_id = reviewResult.id;
           deserializedCurrentReviewRatingCriterionDataSet.created_at = new Date();
           deserializedCurrentReviewRatingCriterionDataSet.updated_at = new Date();
           deserializedReviewArgReviewRatingCriterionsValues.push(deserializedCurrentReviewRatingCriterionDataSet);
@@ -77,9 +80,9 @@ export function addReview(obj, args, context, info) {
         // Insert new review rating criterions values array
         return reviewRatingCriterionValueCollection.forge(deserializedReviewArgReviewRatingCriterionsValues)
           .invokeThen('save', null, { transacting: addNewReview })
-          .then((resultCollection) => {
+          .then((reviewRatingCriterionValueResultCollection) => {
             // Serialize result collection, add it to serialized review result and send the final response to GraphQL
-            const parsedReviewRatingCriterionsValuesResultCollection = JSON.parse(JSON.stringify(resultCollection));
+            const parsedReviewRatingCriterionsValuesResultCollection = JSON.parse(JSON.stringify(reviewRatingCriterionValueResultCollection));
             const serializedReviewArgReviewRatingCriterionsValues = [];
             parsedReviewRatingCriterionsValuesResultCollection.map((currentReviewRatingCriterionDataSet) => {
               const serializedCurrentReviewRatingCriterionDataSet = rename(currentReviewRatingCriterionDataSet, serializeObject);
@@ -100,23 +103,41 @@ export function addReview(obj, args, context, info) {
         // console.log(err);
       } else {
         console.log('Transaction completed!');
-        const insertedReview = resp;
-        insertedReview.reviewRatingCriterionsValues.map((currentReviewRatingCriterionDataSet) => {
-          const insertedReviewRatingCriterion = currentReviewRatingCriterionDataSet;
-          insertedReviewRatingCriterion.ratingCriterion = ratingCriterionModel.where({ id: currentReviewRatingCriterionDataSet.ratingCriterionId })
+        const serializedReview = resp;
+        // Get rating criterion name for each rating criterion value
+        serializedReview.reviewRatingCriterionsValues.map((currentReviewRatingCriterionDataSet) => {
+          const serializedReviewRatingCriterion = currentReviewRatingCriterionDataSet;
+          serializedReviewRatingCriterion.ratingCriterion = ratingCriterionModel.where({ id: currentReviewRatingCriterionDataSet.ratingCriterionId })
             .fetch({ columns: ['name'] })
-            .then((resultRatingCriterionName) => {
-              const parsedRatingCriterionName = JSON.parse(JSON.stringify(resultRatingCriterionName));
+            .then((ratingCriterionNameResult) => {
+              const parsedRatingCriterionName = JSON.parse(JSON.stringify(ratingCriterionNameResult));
+              console.log(parsedRatingCriterionName);
               return parsedRatingCriterionName;
             })
             .catch((error) => { return error; },
             );
         });
-        pubsub.publish(REVIEW_ADDED_KEY, insertedReview);
+        // Get review author full name
+        serializedReview.author = userModel.where({ id: serializedReview.userId })
+          // .fetch({ columns: ['first_name', 'last_name'] })
+          .fetch()
+          .then((authorNameResult) => {
+            const parsedAuthorName = JSON.parse(JSON.stringify(authorNameResult));
+            console.log(parsedAuthorName);
+            console.log(serializedReview);
+            return parsedAuthorName;
+          })
+          .catch((error) => { return error; },
+          ); 
+        /* const argmts = { id: serializedReview.userId };
+        serializedReview.author = {};
+        serializedReview.author = generateFullName(argmts);
+        console.log(serializedReview); */
+        // Send subscription to all subscripted clients
+        pubsub.publish(REVIEW_ADDED_KEY, serializedReview);
       }
     });
 }
-
 
 export function deleteReview(obj, args, context, info) {
   const item = reviewModel;
