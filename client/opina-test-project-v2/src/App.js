@@ -6,8 +6,8 @@ import {
 } from 'react-router-dom';
 import './App.css';
 
-import NotFound from './components/NotFound';
-import Home from './components/Home';
+import NotFound from './_commons/components/NotFound';
+import Home from './home/components/Home';
 
 class App extends Component {
   render() {

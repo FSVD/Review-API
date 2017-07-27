@@ -32,7 +32,7 @@ h1 {
   height: 30px;
   width: 30px;
   display: inline-block;
-  background-image: url('./resources/ts-logo.svg');
+  background-image: url('./_resources/ts-logo.svg');
   background-size: contain;
   margin-right: 10px;
 }
