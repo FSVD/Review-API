@@ -10,13 +10,9 @@ import {
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
-const networkInterface = createNetworkInterface({ uri: 'http://127.0.0.1:4001/graphql', })
-
-networkInterface.use([{
-  applyMiddleware(req, next) {
-    setTimeout(next, 1000);
-  },
-}]);
+const networkInterface = createNetworkInterface({
+  uri: 'http://127.0.0.1:4001/graphql',
+});
 
 const client = new ApolloClient({
   networkInterface,
