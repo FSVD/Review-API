@@ -5,16 +5,16 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-import './App.css';
-import SubjectsListWithData from './components/SubjecListWithData';
-import NotFound from './components/NotFound';
-import SubjectDetails from './components/SubjectDetails';
-
 import {
   ApolloClient,
   ApolloProvider,
   createNetworkInterface,
 } from 'react-apollo';
+import './App.css';
+import SubjectsListWithData from './components/SubjecListWithData';
+import NotFound from './components/NotFound';
+import SubjectDetails from './components/SubjectDetails';
+
 
 const networkInterface = createNetworkInterface({ uri: 'http://127.0.0.1:4001/graphql', })
 
