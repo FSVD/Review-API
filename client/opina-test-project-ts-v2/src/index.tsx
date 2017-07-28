@@ -4,6 +4,11 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
+export interface StoreState {
+  languageName: string;
+  enthusiasmLevel: number;
+}
+
 ReactDOM.render(
   <App />,
   document.getElementById('root') as HTMLElement
