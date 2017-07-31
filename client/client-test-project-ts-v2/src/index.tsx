@@ -1,13 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './App';
+import App from './App/components/App.component';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
-
-export interface StoreState {
-  languageName: string;
-  enthusiasmLevel: number;
-}
 
 ReactDOM.render(
   <App />,
