@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "nodemon ./index.js --exec babel-node -e js",
-    "start": "nodemon ./index.js --exec babel-node -e js"
+    "start": "babel-node index.js"
   },
   "author": "Fabio Schettino",
   "license": "ISC",
