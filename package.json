@@ -31,7 +31,7 @@
     "joi": "10.5.2",
     "join-monster": "1.2.7-beta.1",
     "join-monster-graphql-tools-adapter": "0.0.2",
-    "knex": "0.18.3",
+    "knex": "0.20.1",
     "lodash": "4.17.11",
     "merge-graphql-schemas": "1.1.0",
     "morgan": "1.9.1",
