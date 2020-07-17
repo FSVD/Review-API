@@ -32,7 +32,7 @@
     "join-monster": "1.2.7-beta.1",
     "join-monster-graphql-tools-adapter": "0.0.2",
     "knex": "0.18.3",
-    "lodash": "4.17.11",
+    "lodash": "4.17.19",
     "merge-graphql-schemas": "1.1.0",
     "morgan": "1.9.1",
     "multi-views": "0.1.1",
